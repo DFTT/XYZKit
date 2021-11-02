@@ -1,0 +1,64 @@
+{
+  "name": "XYZKit",
+  "version": "0.1.0",
+  "summary": "A short description of XYZKit.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/DFTT",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "XYZ": "lidong@021.com"
+  },
+  "source": {
+    "git": "https://github.com/DFTT/XYZKit.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "swift_versions": [
+    "5.0"
+  ],
+  "frameworks": [
+    "Foundation",
+    "UIKit"
+  ],
+  "requires_arc": true,
+  "default_subspecs": "Core",
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "XYZKit/Classes/Core/**/*.swift"
+    },
+    {
+      "name": "XYZEmptyBoard",
+      "dependencies": {
+        "XYZKit/Core": [
+
+        ]
+      },
+      "source_files": "XYZKit/Classes/XYZEmptyBoard/**/*.swift"
+    },
+    {
+      "name": "XYZFloatDragView",
+      "dependencies": {
+        "XYZKit/Core": [
+
+        ]
+      },
+      "source_files": "XYZKit/Classes/XYZFloatDragView/**/*.swift"
+    },
+    {
+      "name": "XYZSMSCodeInputView",
+      "dependencies": {
+        "XYZKit/Core": [
+
+        ]
+      },
+      "source_files": "XYZKit/Classes/XYZSMSCodeInputView/**/*.swift"
+    }
+  ],
+  "swift_version": "5.0"
+}

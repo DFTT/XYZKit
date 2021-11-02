@@ -1,0 +1,25 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'XYZKit_Example' do
+
+
+  pod 'XYZKit', :path => '../'
+  pod 'XYZKit/XYZEmptyBoard', :path => '../'
+  pod 'XYZKit/XYZFloatDragView', :path => '../'
+  pod 'XYZKit/XYZSMSCodeInputView', :path => '../'
+
+
+
+
+
+
+
+
+
+
+  target 'XYZKit_Tests' do
+    inherit! :search_paths
+  end
+end

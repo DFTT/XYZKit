@@ -1,0 +1,27 @@
+PODS:
+  - XYZKit (0.1.0):
+    - XYZKit/Core (= 0.1.0)
+  - XYZKit/Core (0.1.0)
+  - XYZKit/XYZEmptyBoard (0.1.0):
+    - XYZKit/Core
+  - XYZKit/XYZFloatDragView (0.1.0):
+    - XYZKit/Core
+  - XYZKit/XYZSMSCodeInputView (0.1.0):
+    - XYZKit/Core
+
+DEPENDENCIES:
+  - XYZKit (from `../`)
+  - XYZKit/XYZEmptyBoard (from `../`)
+  - XYZKit/XYZFloatDragView (from `../`)
+  - XYZKit/XYZSMSCodeInputView (from `../`)
+
+EXTERNAL SOURCES:
+  XYZKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  XYZKit: d3c184010c603ca0e0623219250c70527aa319e0
+
+PODFILE CHECKSUM: 4314b1b07dfc46ebd13ba56eeb1497fca2baf202
+
+COCOAPODS: 1.11.2
