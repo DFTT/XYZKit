@@ -59,10 +59,10 @@ class EmptyBoardDemoVC: UIViewController {
             } action: { btn in
                 let random = arc4random() % 2
                 if random % 3 == 0 {
-                    btn.clipsCornerRadius(10).bgColor(0x17A3FC.color).titleColor(UIColor.white, for: .normal)
+                    btn.clipsCornerRadius(10).bgColor(0x17A3FC.color).titleColor(.white, for: .normal)
                     btn.layer.borderWidth = 0
                 } else if random % 3 == 1 {
-                    btn.clipsCornerRadius(20).bgColor(UIColor.white).titleColor(UIColor.black, for: .normal)
+                    btn.clipsCornerRadius(20).bgColor(.white).titleColor(.black, for: .normal)
                     btn.layer.borderColor = UIColor.black.cgColor
                     btn.layer.borderWidth = 1
                 }

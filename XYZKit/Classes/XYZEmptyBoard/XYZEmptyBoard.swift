@@ -60,7 +60,7 @@ public class XYZEmptyBoard: UIView {
     private var btnAcitonBlock: ((_: UIButton) -> Void)?
     
     private lazy var btn: UIButton = {
-        let btn = UIButton(type: .custom).clipsCornerRadius(20).bgColor(0x17A3FC.color).titleColor(UIColor.white, for: .normal)
+        let btn = UIButton(type: .custom).clipsCornerRadius(20).bgColor(0x17A3FC.color).titleColor(.white, for: .normal)
         self.addSubview(btn)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.widthAnchor.constraint(greaterThanOrEqualToConstant: 95).isActive = true
@@ -90,7 +90,7 @@ public class XYZEmptyBoard: UIView {
         imgV.heightAnchor.constraint(equalToConstant: 180).isActive = true
         imgV.isHidden = true
 
-        let titleL = UILabel().font(16.fontMedium).textColor(UIColor.black).textAlignment(.center).numberOfLines(2)
+        let titleL = UILabel().font(16.fontMedium).textColor(.black).textAlignment(.center).numberOfLines(2)
         titleL.isHidden = true
         
         let descL = UILabel().font(15.fontMedium).textColor(0x9F9F9F.color).textAlignment(.center).numberOfLines(0)
