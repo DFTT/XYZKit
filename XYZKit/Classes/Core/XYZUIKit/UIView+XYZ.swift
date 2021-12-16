@@ -6,7 +6,7 @@
 //  Copyright © 2021 大大东. All rights reserved.
 //
 
-// MARK: fast func
+// MARK: 属性设置, 便于链式调用
 
 public extension UIView {
     @discardableResult

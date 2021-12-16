@@ -6,6 +6,10 @@
 //  Copyright © 2021 大大东. All rights reserved.
 //
 
+import UIKit
+
+// MARK: 属性设置, 便于链式调用
+
 public extension UILabel {
     @discardableResult
     func text(_ text: String?) -> Self {

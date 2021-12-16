@@ -6,6 +6,8 @@
 //  Copyright © 2021 大大东. All rights reserved.
 //
 
+import UIKit
+
 public extension UIImageView {
     convenience init(image: UIImage? = nil, contentMode: ContentMode = .scaleAspectFill) {
         self.init(frame: CGRect.zero)

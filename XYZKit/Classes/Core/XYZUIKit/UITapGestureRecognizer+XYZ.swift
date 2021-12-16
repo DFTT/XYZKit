@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: 便捷创建有Block点击事件的手势
+
 public extension UITapGestureRecognizer {
     convenience init(actionBlock: @escaping () -> Void) {
         self.init()

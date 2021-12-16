@@ -9,6 +9,7 @@
 import Foundation
 
 public extension String {
+    /// 从.xcasserts中获取对应名字的图片
     var image: UIImage? {
         return UIImage(named: self)
     }
