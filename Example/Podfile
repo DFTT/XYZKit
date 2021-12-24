@@ -9,6 +9,7 @@ target 'XYZKit_Example' do
   pod 'XYZKit/XYZEmptyBoard', :path => '../'
   pod 'XYZKit/XYZFloatDragView', :path => '../'
   pod 'XYZKit/XYZSMSCodeInputView', :path => '../'
+  pod 'XYZKit/XYZBadgeView', :path => '../'
 
 
 

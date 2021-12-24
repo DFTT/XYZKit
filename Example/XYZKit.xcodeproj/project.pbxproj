@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F9B94DBA419E7289D56CF37 /* Pods_XYZKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CAB5B411CFB33285DC21E9 /* Pods_XYZKit_Example.framework */; };
+		5B42813827707C010017D2F0 /* BadgeDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B42813727707C010017D2F0 /* BadgeDemoVC.swift */; };
 		5BD1071F2730D0B300212339 /* EmptyBoardDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1071E2730D0B300212339 /* EmptyBoardDemoVC.swift */; };
 		5BD107212730D0D400212339 /* SMSCodeDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD107202730D0D400212339 /* SMSCodeDemoVC.swift */; };
 		5BD107232730D29800212339 /* FloatDragDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD107222730D29800212339 /* FloatDragDemoVC.swift */; };
@@ -34,6 +35,7 @@
 		2291176CB84812E88CD16E60 /* XYZKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = XYZKit.podspec; path = ../XYZKit.podspec; sourceTree = "<group>"; };
 		37E6A575B9AD9547FC6E218E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4364B13F77C19A889CA17CE0 /* Pods_XYZKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XYZKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B42813727707C010017D2F0 /* BadgeDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDemoVC.swift; sourceTree = "<group>"; };
 		5BD1071E2730D0B300212339 /* EmptyBoardDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyBoardDemoVC.swift; sourceTree = "<group>"; };
 		5BD107202730D0D400212339 /* SMSCodeDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSCodeDemoVC.swift; sourceTree = "<group>"; };
 		5BD107222730D29800212339 /* FloatDragDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatDragDemoVC.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				5BD107202730D0D400212339 /* SMSCodeDemoVC.swift */,
 				5BD1071E2730D0B300212339 /* EmptyBoardDemoVC.swift */,
 				5BD107222730D29800212339 /* FloatDragDemoVC.swift */,
+				5B42813727707C010017D2F0 /* BadgeDemoVC.swift */,
 			);
 			name = Demos;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				5BD107232730D29800212339 /* FloatDragDemoVC.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				5BD107212730D0D400212339 /* SMSCodeDemoVC.swift in Sources */,
+				5B42813827707C010017D2F0 /* BadgeDemoVC.swift in Sources */,
 				5BD1071F2730D0B300212339 /* EmptyBoardDemoVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'XYZKit'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'A short description of XYZKit.'
 
   s.description      = <<-DESC
@@ -59,6 +59,11 @@ Pod::Spec.new do |s|
   end
 
 
+  #XYZBadgeView
+  s.subspec 'XYZBadgeView' do |ss|
+    ss.dependency 'XYZKit/Core'
+    ss.source_files = 'XYZKit/Classes/XYZBadgeView/**/*.swift'
+  end
 
 
 

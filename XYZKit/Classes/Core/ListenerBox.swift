@@ -15,9 +15,10 @@
 ///     var name: ListenerBox<String>
 ///  }
 ///  这样就可以在其它位置对此属性的变化 添加listener监听
-struct ListenerBox<T> {
-    typealias ValueChangeBlock = (T) -> Void
-    var value: T {
+
+public struct ListenerBox<T> {
+    public typealias ValueChangeBlock = (T) -> Void
+    public var value: T {
         didSet {
             listenerBlocks?.forEach { block in
                 block(value)
@@ -29,11 +30,12 @@ struct ListenerBox<T> {
         self.value = value
     }
 
-    private var listenerBlocks: [ValueChangeBlock]?
-    mutating func addLister(_ block: @escaping ValueChangeBlock) {
+    public mutating func addLister(_ block: @escaping ValueChangeBlock) {
         if listenerBlocks == nil {
             listenerBlocks = [ValueChangeBlock]()
         }
         listenerBlocks!.append(block)
     }
+
+    private var listenerBlocks: [ValueChangeBlock]?
 }

@@ -6,8 +6,8 @@
 - [x] ```XYZEmptyBoard```一个空视图, 样式通用
 - [x] ```XYZFloatDragView```一个可拖拽的悬浮窗, 处理了SafeArea / 自动吸边
 - [x] ```XYZSMSCodeInputView```一个验证码输入视图
-- [ ] ```XYZCellLogUtil```cell展现/点击日志工具类, 未完成
-- [ ] ```XYZCellLogUtil```cell展现/点击日志工具类, 未完成
+- [x] ```XYZbadgeView```小红点角标
+- [ ] ```XYZCellLogUtil```cell展现/点击日志工具类
 
 
 ### 安装
@@ -22,4 +22,6 @@ pod 'XYZKit/XYZEmptyBoard'
 pod 'XYZKit/XYZFloatDragView'
 # XYZSMSCodeInputView
 pod 'XYZKit/XYZSMSCodeInputView'
+# XYZBadgeView
+pod 'XYZKit/XYZBadgeView'
 ```
