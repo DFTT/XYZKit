@@ -37,7 +37,7 @@ public extension UIView {
 
 public extension UIView {
     /// 生成当前View截图
-    /// - Parameter screenScale: 控制图片分辨率(1~3)
+    /// - Parameter screenScale: 控制图片分辨率(1~3), 大图时建议设置为1, 否则图片物理占
     /// - Returns: UIImage
     func snapShotImage(screenScale: CGFloat = UIScreen.main.scale) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, screenScale)
