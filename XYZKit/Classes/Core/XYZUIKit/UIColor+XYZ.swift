@@ -13,7 +13,7 @@ public extension UIColor {
     /// - Parameters:
     ///   - rgbHex: 16进制数字(0xRRGGBB)
     ///   - alpha: 透明度
-    convenience init(rgbHex: Int, alpha: Float) {
+    convenience init(rgbHex: Int, alpha: Float = 1) {
         let r = CGFloat((rgbHex & 0xFF0000) >> 16) / 255
         let g = CGFloat((rgbHex & 0xFF00) >> 8) / 255
         let b = CGFloat(rgbHex & 0xFF) / 255
@@ -38,5 +38,24 @@ public extension UIColor {
         }
 
         self.init(rgbHex: intHex, alpha: alpha)
+    }
+
+    /// 提取RGBA颜色分量
+    var rgba: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        self.getRed(&r, green: &g, blue: &b, alpha: &a)
+        return (r, g, b, a)
+    }
+
+    /// 生成一个随机颜色
+    /// - Returns: 随机色
+    static func randomColor() -> UIColor {
+        let r = CGFloat(arc4random() % 256) / 255
+        let g = CGFloat(arc4random() % 256) / 255
+        let b = CGFloat(arc4random() % 256) / 255
+        return UIColor(red: r, green: g, blue: b, alpha: 1)
     }
 }

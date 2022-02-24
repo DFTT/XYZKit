@@ -12,6 +12,12 @@ import UIKit
 
 public extension UIButton {
     @discardableResult
+    func font(_ font: UIFont) -> Self {
+        self.titleLabel?.font = font
+        return self
+    }
+
+    @discardableResult
     func title(_ title: String?, for state: UIControl.State) -> Self {
         self.setTitle(title, for: state)
         return self

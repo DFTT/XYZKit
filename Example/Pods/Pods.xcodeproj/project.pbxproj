@@ -15,6 +15,7 @@
 		34DF77247198ECDFDBC25F4019A5ED2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */; };
 		51F4AE1726CB2C08939542970C7EC94D /* XYZSMSCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E329642347F43A2B4E8CD9B4A330533 /* XYZSMSCodeInputView.swift */; };
 		59E4BD003CBD0308DEDCDA8921975005 /* UIBUtton+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE4F95779EDC152FC76388669D3CE7 /* UIBUtton+XYZ.swift */; };
+		5B2C8D3427BD058200F6AFD9 /* URL+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C8D3327BD058200F6AFD9 /* URL+XYZ.swift */; };
 		5B42813B2779AB1C0017D2F0 /* UIImage+XYZ.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B42813A2779AB1C0017D2F0 /* UIImage+XYZ.swift.swift */; };
 		671E6BC8B49C472FADCEBBCE1BBC4B88 /* Pods-XYZKit_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 331071BA026B83E4E07A6757B9918275 /* Pods-XYZKit_Example-dummy.m */; };
 		6DF73B17B22DA2A9F0C1956737D73996 /* UIView+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597FBA48C65888B9F2B5AD547EDB658B /* UIView+XYZ.swift */; };
@@ -67,6 +68,7 @@
 		5025836F5CB094834B77A0B0842E3606 /* Pods-XYZKit_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-XYZKit_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		54FB37C3F70F44ACAE4B5EACEB1D858D /* Pods-XYZKit_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-XYZKit_Tests"; path = Pods_XYZKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		597FBA48C65888B9F2B5AD547EDB658B /* UIView+XYZ.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+XYZ.swift"; sourceTree = "<group>"; };
+		5B2C8D3327BD058200F6AFD9 /* URL+XYZ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+XYZ.swift"; sourceTree = "<group>"; };
 		5B42813A2779AB1C0017D2F0 /* UIImage+XYZ.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+XYZ.swift.swift"; sourceTree = "<group>"; };
 		5DA2493D2D3FFD757C2AE7BDA631E3EA /* Pods-XYZKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-XYZKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		61430C7D199F80F1C19AEF4133DEAE04 /* XYZEmptyBoard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XYZEmptyBoard.swift; path = XYZKit/Classes/XYZEmptyBoard/XYZEmptyBoard.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				6A37848CF4B1F0198F1878EAF6163E37 /* Array+XYZ.swift */,
 				69512BEB364C7D08FF6516B03C2B6B68 /* Int+XYZ.swift */,
 				BDBF2F6468E98AFE74DEA9B360C5FAF5 /* String+XYZ.swift */,
+				5B2C8D3327BD058200F6AFD9 /* URL+XYZ.swift */,
 			);
 			name = XYZFoundation;
 			path = XYZKit/Classes/Core/XYZFoundation;
@@ -503,6 +506,7 @@
 				6DF73B17B22DA2A9F0C1956737D73996 /* UIView+XYZ.swift in Sources */,
 				09E2FF00F12C2B1D12B8EAA86AC6D942 /* XYZBadgeView.swift in Sources */,
 				DB6A00B9EB065B1459E0D1DEB3E8B1E2 /* XYZEmptyBoard.swift in Sources */,
+				5B2C8D3427BD058200F6AFD9 /* URL+XYZ.swift in Sources */,
 				5B42813B2779AB1C0017D2F0 /* UIImage+XYZ.swift.swift in Sources */,
 				E26FA76A41E814BBAE2066DCCE88AE5E /* XYZFloatDragView.swift in Sources */,
 				BC0F886BD1A41188D4C946D2B99F3A37 /* XYZKit-dummy.m in Sources */,

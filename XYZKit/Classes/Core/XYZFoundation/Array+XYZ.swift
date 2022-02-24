@@ -6,7 +6,13 @@
 //
 
 import Foundation
-extension Array {
+public extension Array {
+    /// 不会越界的数组取值
+    func safeObject(at index: Int) -> Self.Element? {
+        guard (self.startIndex ..< self.endIndex).contains(index) else { return nil }
+        return self[index]
+    }
+
     /// 数组去重(保持原数组顺序)
     /// - Returns: 去重后的数组
     func filterDuplicate<E: Hashable>(_ filter: (Element) -> E) -> [Element] {
@@ -25,5 +31,17 @@ extension Array {
         var sets = Set<E>(minimumCapacity: self.count + array.count)
         sets.formUnion(self.map { filter($0) })
         self.append(contentsOf: array.filter { sets.insert(filter($0)).inserted })
+    }
+
+    /// 转换为JSONString
+    /// - Returns: json string
+    func toJSONString() -> String? {
+        guard JSONSerialization.isValidJSONObject(self),
+              let jsonData = try? JSONSerialization.data(withJSONObject: self)
+        else {
+            return nil
+        }
+
+        return String(data: jsonData, encoding: .utf8)
     }
 }

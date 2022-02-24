@@ -16,10 +16,36 @@ public extension UIView {
     }
 
     @discardableResult
+    func contentMode(_ mode: UIView.ContentMode) -> Self {
+        self.contentMode = mode
+        return self
+    }
+
+    @discardableResult
+    func hidden(_ isHidden: Bool) -> Self {
+        self.isHidden = isHidden
+        return self
+    }
+
+    @discardableResult
+    func alpha(_ alpha: CGFloat) -> Self {
+        self.alpha = alpha
+        return self
+    }
+
+    @discardableResult
     func clipsCornerRadius(_ radius: Float) -> Self {
         self.clipsToBounds = true
         self.layer.cornerRadius = CGFloat(radius)
         return self
+    }
+}
+
+// MARK: tool
+
+public extension UIView {
+    var boundsCenter: CGPoint {
+        return CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
     }
 }
 
@@ -37,7 +63,7 @@ public extension UIView {
 
 public extension UIView {
     /// 生成当前View截图
-    /// - Parameter screenScale: 控制图片分辨率(1~3), 大图时建议设置为1, 否则图片物理占
+    /// - Parameter screenScale: 控制图片分辨率(x1~x3), 大图时建议设置为1, 否则图片物理内存很大
     /// - Returns: UIImage
     func snapShotImage(screenScale: CGFloat = UIScreen.main.scale) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, screenScale)
@@ -45,9 +71,7 @@ public extension UIView {
             return nil
         }
         layer.render(in: context)
-        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
-            return nil
-        }
+        let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
     }
