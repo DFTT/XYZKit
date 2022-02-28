@@ -10,7 +10,7 @@ import Foundation
 public extension Dictionary {
     /// 转换为JSONString
     /// - Returns: json string
-    func toJSONString() -> String? {
+    var toJSONString: String? {
         guard JSONSerialization.isValidJSONObject(self),
               let jsonData = try? JSONSerialization.data(withJSONObject: self)
         else {

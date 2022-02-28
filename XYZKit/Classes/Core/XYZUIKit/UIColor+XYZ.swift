@@ -29,7 +29,7 @@ public extension UIColor {
         var hex: String?
         if str.hasPrefix("#") {
             hex = String(str.suffix(from: str.index(str.startIndex, offsetBy: 1)))
-        } else if str.hasPrefix("0X") || str.hasPrefix("0x") {
+        } else if str.hasPrefix("0X") {
             hex = String(str.suffix(from: str.index(str.startIndex, offsetBy: 2)))
         }
         // rrggbb
