@@ -97,7 +97,7 @@ public extension UIView {
         }
     }
 
-    func shakeAnimation(_ duration: TimeInterval = 0.6) {
+    func shakeAnimation(_ duration: TimeInterval = 0.6, isRepeat: Bool = false) {
         self.layer.removeAllAnimations()
 
         let center = self.center
@@ -111,12 +111,13 @@ public extension UIView {
                            moveXLeft, moveXRight,
                            moveXLeft, moveXRight,
                            center.x]
+        shakeAni.repeatCount = isRepeat ? Float.greatestFiniteMagnitude : 1
         DispatchQueue.main.async {
             self.layer.add(shakeAni, forKey: "__shake__")
         }
     }
 
-    func bounceAnimation(_ duration: TimeInterval = 0.8) {
+    func bounceAnimation(_ duration: TimeInterval = 0.8, isRepeat: Bool = false) {
         self.layer.removeAllAnimations()
 
         let time_1 = QuartzCore.CAMediaTimingFunction(controlPoints: 0.215, 0.610, 0.355, 1)
@@ -133,12 +134,13 @@ public extension UIView {
         bonceAni.values = [value_0, value_1, value_1, value_0, value_2, value_0, value_3]
         bonceAni.keyTimes = [0.2, 0.4, 0.43, 0.53, 0.7, 0.8, 0.9]
         bonceAni.timingFunctions = [time_1, time_2, time_2, time_1, time_2, time_1, time_1, time_2]
+        bonceAni.repeatCount = isRepeat ? Float.greatestFiniteMagnitude : 1
         DispatchQueue.main.async {
             self.layer.add(bonceAni, forKey: "__bonce__")
         }
     }
 
-    func swingAnimtion(_ duration: TimeInterval = 0.8) {
+    func swingAnimtion(_ duration: TimeInterval = 0.8, isRepeat: Bool = false) {
         self.layer.removeAllAnimations()
 
         let rotateF = 15 * Double.pi / 180.0
@@ -153,8 +155,63 @@ public extension UIView {
                            CATransform3DRotate(CATransform3DIdentity, rotateT, 0, 0, 1),
                            CATransform3DRotate(CATransform3DIdentity, -rotateT, 0, 0, 1),
                            CATransform3DRotate(CATransform3DIdentity, 0, 0, 0, 1)]
+        swingAni.repeatCount = isRepeat ? Float.greatestFiniteMagnitude : 1
         DispatchQueue.main.async {
             self.layer.add(swingAni, forKey: "__swing__")
+        }
+    }
+}
+
+// MARK: 扩大点击区域
+
+public extension UIView {
+    var expandInsets: UIEdgeInsets {
+        get {
+            let inset = (objc_getAssociatedObject(self, &XYZAssociatedKeys.viewExpandKey) as? UIEdgeInsets)
+            return inset ?? .zero
+        }
+        set {
+            objc_setAssociatedObject(self, &XYZAssociatedKeys.viewExpandKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+            _ = XYZ_UIView_Swizzling.pointInside_swizzling
+        }
+    }
+
+    @objc private func xyz_point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if expandInsets == .zero {
+            return xyz_point(inside: point, with: event)
+        } else {
+            var res = xyz_point(inside: point, with: event)
+            if !res {
+                let newRect = CGRect(x: bounds.origin.x - expandInsets.left,
+                                     y: bounds.origin.y - expandInsets.top,
+                                     width: bounds.size.width + expandInsets.left + expandInsets.right,
+                                     height: bounds.size.height + expandInsets.top + expandInsets.bottom)
+                res = newRect.contains(point)
+            }
+            return res
+        }
+    }
+
+    private struct XYZ_UIView_Swizzling {
+        static let pointInside_swizzling = XYZ_UIView_Swizzling()
+        init() {
+            let classType = UIView.self
+            let oriSelector = #selector(point(inside:with:))
+            let swizzleSelector = #selector(xyz_point(inside:with:))
+            guard let originMethed = class_getInstanceMethod(classType, oriSelector),
+                  let swizzleMethed = class_getInstanceMethod(classType, swizzleSelector)
+            else {
+                return
+            }
+
+            let didAddMethod = class_addMethod(classType, oriSelector, method_getImplementation(swizzleMethed), method_getTypeEncoding(swizzleMethed))
+
+            if didAddMethod {
+                class_replaceMethod(classType, swizzleSelector, method_getImplementation(originMethed), method_getTypeEncoding(originMethed))
+            } else {
+                method_exchangeImplementations(originMethed, swizzleMethed)
+            }
         }
     }
 }

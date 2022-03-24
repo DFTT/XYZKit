@@ -15,7 +15,7 @@ public extension UITapGestureRecognizer {
         self.init()
 
         let val = Xyz_TapGesAction(actionBlock)
-        objc_setAssociatedObject(self, &xyz_AssociatedKes.assActionkey, val, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        objc_setAssociatedObject(self, &XYZAssociatedKeys.gestureActionBlockKey, val, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
         addTarget(val, action: #selector(Xyz_TapGesAction.tapActionFunc))
     }
@@ -29,9 +29,5 @@ public extension UITapGestureRecognizer {
         @objc func tapActionFunc() {
             __action()
         }
-    }
-
-    private enum xyz_AssociatedKes {
-        static var assActionkey = "_assActionkey"
     }
 }

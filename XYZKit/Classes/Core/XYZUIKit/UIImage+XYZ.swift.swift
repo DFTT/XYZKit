@@ -6,6 +6,21 @@
 //
 
 import Foundation
+import UIKit
+
+// MARK: Creat from Color
+
+public extension UIImage {
+    static func image(with color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
+        let ctx = UIGraphicsGetCurrentContext()
+        ctx?.setFillColor(color.cgColor)
+        ctx?.fill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
 
 // MARK: Compress
 

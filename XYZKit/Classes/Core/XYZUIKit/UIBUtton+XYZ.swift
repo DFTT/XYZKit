@@ -57,16 +57,12 @@ public extension UIButton {
         self.xyz_btnActionBlock?(self)
     }
 
-    private enum xyz_associatedKeys {
-        static var btnActionBlockKey = "xyz_btnActionBlockKey"
-    }
-
     private var xyz_btnActionBlock: ((_ btn: UIButton) -> Void)? {
         set {
-            objc_setAssociatedObject(self, &xyz_associatedKeys.btnActionBlockKey, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+            objc_setAssociatedObject(self, &XYZAssociatedKeys.btnActionBlockKey, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
         get {
-            return objc_getAssociatedObject(self, &xyz_associatedKeys.btnActionBlockKey) as? ((UIButton) -> Void)
+            return objc_getAssociatedObject(self, &XYZAssociatedKeys.btnActionBlockKey) as? ((UIButton) -> Void)
         }
     }
 }

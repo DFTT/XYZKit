@@ -17,6 +17,7 @@
 		59E4BD003CBD0308DEDCDA8921975005 /* UIBUtton+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE4F95779EDC152FC76388669D3CE7 /* UIBUtton+XYZ.swift */; };
 		5B2C8D3427BD058200F6AFD9 /* URL+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C8D3327BD058200F6AFD9 /* URL+XYZ.swift */; };
 		5B42813B2779AB1C0017D2F0 /* UIImage+XYZ.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B42813A2779AB1C0017D2F0 /* UIImage+XYZ.swift.swift */; };
+		5B87DD3A27ECB0D000DBF914 /* XYZAssociatedKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B87DD3927ECB0D000DBF914 /* XYZAssociatedKeys.swift */; };
 		671E6BC8B49C472FADCEBBCE1BBC4B88 /* Pods-XYZKit_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 331071BA026B83E4E07A6757B9918275 /* Pods-XYZKit_Example-dummy.m */; };
 		6DF73B17B22DA2A9F0C1956737D73996 /* UIView+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597FBA48C65888B9F2B5AD547EDB658B /* UIView+XYZ.swift */; };
 		7D95A18D04AC80FAC10BC8EC92B3FE81 /* UIColor+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B14F66A5E4A61334EF85C824FAD34D /* UIColor+XYZ.swift */; };
@@ -70,6 +71,7 @@
 		597FBA48C65888B9F2B5AD547EDB658B /* UIView+XYZ.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+XYZ.swift"; sourceTree = "<group>"; };
 		5B2C8D3327BD058200F6AFD9 /* URL+XYZ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+XYZ.swift"; sourceTree = "<group>"; };
 		5B42813A2779AB1C0017D2F0 /* UIImage+XYZ.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+XYZ.swift.swift"; sourceTree = "<group>"; };
+		5B87DD3927ECB0D000DBF914 /* XYZAssociatedKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XYZAssociatedKeys.swift; path = XYZKit/Classes/Core/XYZAssociatedKeys.swift; sourceTree = "<group>"; };
 		5DA2493D2D3FFD757C2AE7BDA631E3EA /* Pods-XYZKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-XYZKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		61430C7D199F80F1C19AEF4133DEAE04 /* XYZEmptyBoard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XYZEmptyBoard.swift; path = XYZKit/Classes/XYZEmptyBoard/XYZEmptyBoard.swift; sourceTree = "<group>"; };
 		624D7983D06078D24A4C949EEA930BB4 /* Pods-XYZKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-XYZKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 		7049F5D3E7049199BCB2D0B1C2ACA8FB /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				5B87DD3927ECB0D000DBF914 /* XYZAssociatedKeys.swift */,
 				2253489950A2B09923AB7635030C105B /* ListenerBox.swift */,
 				82CFCD1B72743E0383EA13B387708EEF /* XYZFoundation */,
 				872A2AE30956A1919D483556FB41F7AC /* XYZUIKit */,
@@ -495,6 +498,7 @@
 			files = (
 				C2AA2A80CBCD6570CC3AA7B4A4791976 /* Array+XYZ.swift in Sources */,
 				E811D525B7DFFBA563EF70C5A2EBDE16 /* Int+XYZ.swift in Sources */,
+				5B87DD3A27ECB0D000DBF914 /* XYZAssociatedKeys.swift in Sources */,
 				28902A6E7B85A988571EC657E1751679 /* ListenerBox.swift in Sources */,
 				D7E84C98263DE7890CF7937461B31330 /* String+XYZ.swift in Sources */,
 				59E4BD003CBD0308DEDCDA8921975005 /* UIBUtton+XYZ.swift in Sources */,
