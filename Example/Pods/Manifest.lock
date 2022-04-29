@@ -1,14 +1,16 @@
 PODS:
-  - XYZKit (0.2.0):
-    - XYZKit/Core (= 0.2.0)
-  - XYZKit/Core (0.2.0)
-  - XYZKit/XYZBadgeView (0.2.0):
+  - XYZKit (0.5.0):
+    - XYZKit/Core (= 0.5.0)
+  - XYZKit/Core (0.5.0)
+  - XYZKit/XYZBadgeView (0.5.0):
     - XYZKit/Core
-  - XYZKit/XYZEmptyBoard (0.2.0):
+  - XYZKit/XYZEmptyBoard (0.5.0):
     - XYZKit/Core
-  - XYZKit/XYZFloatDragView (0.2.0):
+  - XYZKit/XYZFloatDragView (0.5.0):
     - XYZKit/Core
-  - XYZKit/XYZSMSCodeInputView (0.2.0):
+  - XYZKit/XYZLinkView (0.5.0):
+    - XYZKit/Core
+  - XYZKit/XYZSMSCodeInputView (0.5.0):
     - XYZKit/Core
 
 DEPENDENCIES:
@@ -16,6 +18,7 @@ DEPENDENCIES:
   - XYZKit/XYZBadgeView (from `../`)
   - XYZKit/XYZEmptyBoard (from `../`)
   - XYZKit/XYZFloatDragView (from `../`)
+  - XYZKit/XYZLinkView (from `../`)
   - XYZKit/XYZSMSCodeInputView (from `../`)
 
 EXTERNAL SOURCES:
@@ -23,8 +26,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  XYZKit: b3476ab4f821e74243d75f83b4e015dd3c92d91b
+  XYZKit: 23cd434472944c4298fd7de5db6a2bb591b9dad3
 
-PODFILE CHECKSUM: 9b3aae929b61511e443297d52d3b04e56a967ffc
+PODFILE CHECKSUM: 46ca24290e33f3f3955dded21c0b3312ca863eba
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

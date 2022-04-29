@@ -13,7 +13,7 @@ public extension UIColor {
     /// - Parameters:
     ///   - rgbHex: 16进制数字(0xRRGGBB)
     ///   - alpha: 透明度
-    convenience init(rgbHex: Int, alpha: Float = 1) {
+    convenience init(rgbHex: Int, alpha: Float = 1.0) {
         let r = CGFloat((rgbHex & 0xFF0000) >> 16) / 255
         let g = CGFloat((rgbHex & 0xFF00) >> 8) / 255
         let b = CGFloat(rgbHex & 0xFF) / 255

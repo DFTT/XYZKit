@@ -10,13 +10,7 @@ target 'XYZKit_Example' do
   pod 'XYZKit/XYZFloatDragView', :path => '../'
   pod 'XYZKit/XYZSMSCodeInputView', :path => '../'
   pod 'XYZKit/XYZBadgeView', :path => '../'
-
-
-
-
-
-
-
+  pod 'XYZKit/XYZLinkView', :path => '../'
 
 
 

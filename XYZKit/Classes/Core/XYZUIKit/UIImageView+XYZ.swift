@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIImageView {
-    convenience init(image: UIImage? = nil, contentMode: ContentMode = .scaleAspectFill) {
+    convenience init(image: UIImage? = nil, contentMode: UIView.ContentMode = .scaleAspectFill) {
         self.init(frame: CGRect.zero)
 
         self.image = image

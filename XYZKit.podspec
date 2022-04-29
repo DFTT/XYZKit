@@ -66,7 +66,11 @@ Pod::Spec.new do |s|
   end
 
 
-
+  #XYZLinkView
+  s.subspec 'XYZLinkView' do |ss|
+    ss.dependency 'XYZKit/Core'
+    ss.source_files = 'XYZKit/Classes/XYZLinkView/**/*.swift'
+  end
 
 
 

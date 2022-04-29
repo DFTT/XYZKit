@@ -25,8 +25,9 @@ class ViewController: UIViewController {
         dataArr.append(VCCellItem(name: "验证码输入", vcClass: SMSCodeDemoVC.self))
         dataArr.append(VCCellItem(name: "可拖动悬浮窗", vcClass: FloatDragDemoVC.self))
         dataArr.append(VCCellItem(name: "小红点", vcClass: BadgeDemoVC.self))
-        dataArr.append(VCCellItem(name: "点击区域扩大", vcClass: ExpandActionDemoVC.self))
-    
+        dataArr.append(VCCellItem(name: "String部分区域添加可点击链接🔗", vcClass: LinkDemoVC.self))
+        dataArr.append(VCCellItem(name: "点击区域扩大 & btn布局", vcClass: ExpandActionDemoVC.self))
+        dataArr.append(VCCellItem(name: "渐变图层(dai)", vcClass: GradientViewDemoVC.self))
         let tabView = UITableView(frame: self.view.bounds, style: .plain)
         tabView.delegate = self
         tabView.dataSource = self

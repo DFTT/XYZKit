@@ -1,6 +1,6 @@
 {
   "name": "XYZKit",
-  "version": "0.2.0",
+  "version": "0.5.0",
   "summary": "A short description of XYZKit.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/DFTT",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/DFTT/XYZKit.git",
-    "tag": "0.2.0"
+    "tag": "0.5.0"
   },
   "platforms": {
     "ios": "9.0"
@@ -67,6 +67,15 @@
         ]
       },
       "source_files": "XYZKit/Classes/XYZBadgeView/**/*.swift"
+    },
+    {
+      "name": "XYZLinkView",
+      "dependencies": {
+        "XYZKit/Core": [
+
+        ]
+      },
+      "source_files": "XYZKit/Classes/XYZLinkView/**/*.swift"
     }
   ],
   "swift_version": "5.0"

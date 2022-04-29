@@ -6,7 +6,6 @@
 //  Copyright © 2021 CocoaPods. All rights reserved.
 //
 
-
 import UIKit
 import XYZKit
 
@@ -30,6 +29,7 @@ class BadgeDemoVC: UIViewController {
         
         let view1 = UIView(frame: CGRect(x: 100, y: 100, width: 50, height: 50)).bgColor(.blue)
         self.view.addSubview(view1)
+
         let badge1 = XYZBadgeView(.red)
         badge1.contentView.text = "9"
         badge1.contentView.font = 14.font
@@ -37,6 +37,7 @@ class BadgeDemoVC: UIViewController {
         
         let view1_1 = UIView(frame: CGRect(x: 200, y: 100, width: 50, height: 50)).bgColor(.blue)
         self.view.addSubview(view1_1)
+
         let badge1_1 = XYZBadgeView(.red)
         badge1_1.contentView.text = "9"
         badge1_1.contentView.font = 14.font
