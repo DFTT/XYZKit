@@ -11,9 +11,8 @@ import Foundation
  使用文本 点击 事件
  1、绑定关键词和 响应点击事件
  2、支持多组关键词
- 
- 已知问题待处理: 只能支持第一个命中词(比如:"如果你好,那么你好", 只能高亮第一个"你好")
- */
+ 3、支持重复出现关键字
+*/
 
 public class XYZLinkView: UITextView {
     public typealias LinkTapBlock = () -> Void
@@ -47,10 +46,12 @@ public class XYZLinkView: UITextView {
             return
         }
         for (_, key) in linkCases.keys.enumerated() {
-            let range = NSRange(text.range(of: key)!, in: text)
+            let ranges:[NSRange] = text.kmpFindAll(key) // 查找所有子字符串 Range
             let path: String? = key.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             if path != nil {
-                attr.addAttribute(NSAttributedString.Key.link, value: "XYZLink://" + path!, range: range)
+                for range in ranges {
+                    attr.addAttribute(NSAttributedString.Key.link, value: "XYZLink://" + path!, range: range)
+                }
             }
         }
         self.isEditable = false
