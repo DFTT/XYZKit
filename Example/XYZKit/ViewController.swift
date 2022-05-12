@@ -28,6 +28,7 @@ class ViewController: UIViewController {
         dataArr.append(VCCellItem(name: "String部分区域添加可点击链接🔗", vcClass: LinkDemoVC.self))
         dataArr.append(VCCellItem(name: "点击区域扩大 & btn布局", vcClass: ExpandActionDemoVC.self))
         dataArr.append(VCCellItem(name: "渐变图层(dai)", vcClass: GradientViewDemoVC.self))
+        dataArr.append(VCCellItem(name: "镂空引导", vcClass: GuideDemoVC.self))
         let tabView = UITableView(frame: self.view.bounds, style: .plain)
         tabView.delegate = self
         tabView.dataSource = self
