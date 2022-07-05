@@ -7,9 +7,9 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'XYZKit'
-  s.version          = '0.5.0'
-  s.summary          = 'A short description of XYZKit.'
+  s.name             = 'XYZKit_master'
+  s.version          = '1.0.0'
+  s.summary          = 'A short description of XYZKit_master.'
 
   s.description      = <<-DESC
                       TODO: Add long description of the pod here.
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/DFTT'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'XYZ' => 'lidong@021.com' }
-  s.source           = { :git => 'https://github.com/DFTT/XYZKit.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/DFTT/XYZKit.git', :branch => 'master' }
 
 
   s.ios.deployment_target = '9.0'
@@ -40,35 +40,35 @@ Pod::Spec.new do |s|
 
   #XYZEmptyBoard
   s.subspec 'XYZEmptyBoard' do |ss|
-    ss.dependency 'XYZKit/Core'
+    ss.dependency 'XYZKit_master/Core'
     ss.source_files = 'XYZKit/Classes/XYZEmptyBoard/**/*.swift'
   end
 
 
   #XYZFloatDragView
   s.subspec 'XYZFloatDragView' do |ss|
-    ss.dependency 'XYZKit/Core'
+    ss.dependency 'XYZKit_master/Core'
     ss.source_files = 'XYZKit/Classes/XYZFloatDragView/**/*.swift'
   end
 
 
   #XYZSMSCodeInputView
   s.subspec 'XYZSMSCodeInputView' do |ss|
-    ss.dependency 'XYZKit/Core'
+    ss.dependency 'XYZKit_master/Core'
     ss.source_files = 'XYZKit/Classes/XYZSMSCodeInputView/**/*.swift'
   end
 
 
   #XYZBadgeView
   s.subspec 'XYZBadgeView' do |ss|
-    ss.dependency 'XYZKit/Core'
+    ss.dependency 'XYZKit_master/Core'
     ss.source_files = 'XYZKit/Classes/XYZBadgeView/**/*.swift'
   end
 
 
   #XYZLinkView
   s.subspec 'XYZLinkView' do |ss|
-    ss.dependency 'XYZKit/Core'
+    ss.dependency 'XYZKit_master/Core'
     ss.source_files = 'XYZKit/Classes/XYZLinkView/**/*.swift'
   end
 

@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1F9B94DBA419E7289D56CF37 /* Pods_XYZKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CAB5B411CFB33285DC21E9 /* Pods_XYZKit_Example.framework */; };
-		5B3C20F227EC915D00E1BB75 /* ExpandActionDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3C20F127EC915D00E1BB75 /* ExpandActionDemoVC.swift */; };
-		5B42813827707C010017D2F0 /* BadgeDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B42813727707C010017D2F0 /* BadgeDemoVC.swift */; };
-		5BD1071F2730D0B300212339 /* EmptyBoardDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1071E2730D0B300212339 /* EmptyBoardDemoVC.swift */; };
-		5BD107212730D0D400212339 /* SMSCodeDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD107202730D0D400212339 /* SMSCodeDemoVC.swift */; };
-		5BD107232730D29800212339 /* FloatDragDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD107222730D29800212339 /* FloatDragDemoVC.swift */; };
+		5B3FC0A92872FF7D000F9BF5 /* FloatDragDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FC0A22872FF7D000F9BF5 /* FloatDragDemoVC.swift */; };
+		5B3FC0AA2872FF7D000F9BF5 /* BadgeDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FC0A32872FF7D000F9BF5 /* BadgeDemoVC.swift */; };
+		5B3FC0AB2872FF7D000F9BF5 /* SMSCodeDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FC0A42872FF7D000F9BF5 /* SMSCodeDemoVC.swift */; };
+		5B3FC0AC2872FF7D000F9BF5 /* EmptyBoardDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FC0A52872FF7D000F9BF5 /* EmptyBoardDemoVC.swift */; };
+		5B3FC0AD2872FF7D000F9BF5 /* LinkDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FC0A62872FF7D000F9BF5 /* LinkDemoVC.swift */; };
+		5B3FC0AE2872FF7D000F9BF5 /* GradientViewDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FC0A72872FF7D000F9BF5 /* GradientViewDemoVC.swift */; };
+		5B3FC0AF2872FF7D000F9BF5 /* ExpandActionDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FC0A82872FF7D000F9BF5 /* ExpandActionDemoVC.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -36,11 +38,13 @@
 		2291176CB84812E88CD16E60 /* XYZKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = XYZKit.podspec; path = ../XYZKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		37E6A575B9AD9547FC6E218E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4364B13F77C19A889CA17CE0 /* Pods_XYZKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XYZKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5B3C20F127EC915D00E1BB75 /* ExpandActionDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandActionDemoVC.swift; sourceTree = "<group>"; };
-		5B42813727707C010017D2F0 /* BadgeDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDemoVC.swift; sourceTree = "<group>"; };
-		5BD1071E2730D0B300212339 /* EmptyBoardDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyBoardDemoVC.swift; sourceTree = "<group>"; };
-		5BD107202730D0D400212339 /* SMSCodeDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSCodeDemoVC.swift; sourceTree = "<group>"; };
-		5BD107222730D29800212339 /* FloatDragDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatDragDemoVC.swift; sourceTree = "<group>"; };
+		5B3FC0A22872FF7D000F9BF5 /* FloatDragDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatDragDemoVC.swift; sourceTree = "<group>"; };
+		5B3FC0A32872FF7D000F9BF5 /* BadgeDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeDemoVC.swift; sourceTree = "<group>"; };
+		5B3FC0A42872FF7D000F9BF5 /* SMSCodeDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSCodeDemoVC.swift; sourceTree = "<group>"; };
+		5B3FC0A52872FF7D000F9BF5 /* EmptyBoardDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyBoardDemoVC.swift; sourceTree = "<group>"; };
+		5B3FC0A62872FF7D000F9BF5 /* LinkDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkDemoVC.swift; sourceTree = "<group>"; };
+		5B3FC0A72872FF7D000F9BF5 /* GradientViewDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientViewDemoVC.swift; sourceTree = "<group>"; };
+		5B3FC0A82872FF7D000F9BF5 /* ExpandActionDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandActionDemoVC.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* XYZKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XYZKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,16 +94,18 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		5BD1071D2730D06D00212339 /* Demos */ = {
+		5B3FC0A12872FF7D000F9BF5 /* DemoVCs */ = {
 			isa = PBXGroup;
 			children = (
-				5BD107202730D0D400212339 /* SMSCodeDemoVC.swift */,
-				5BD1071E2730D0B300212339 /* EmptyBoardDemoVC.swift */,
-				5BD107222730D29800212339 /* FloatDragDemoVC.swift */,
-				5B42813727707C010017D2F0 /* BadgeDemoVC.swift */,
-				5B3C20F127EC915D00E1BB75 /* ExpandActionDemoVC.swift */,
+				5B3FC0A22872FF7D000F9BF5 /* FloatDragDemoVC.swift */,
+				5B3FC0A32872FF7D000F9BF5 /* BadgeDemoVC.swift */,
+				5B3FC0A42872FF7D000F9BF5 /* SMSCodeDemoVC.swift */,
+				5B3FC0A52872FF7D000F9BF5 /* EmptyBoardDemoVC.swift */,
+				5B3FC0A62872FF7D000F9BF5 /* LinkDemoVC.swift */,
+				5B3FC0A72872FF7D000F9BF5 /* GradientViewDemoVC.swift */,
+				5B3FC0A82872FF7D000F9BF5 /* ExpandActionDemoVC.swift */,
 			);
-			name = Demos;
+			path = DemoVCs;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -128,7 +134,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
-				5BD1071D2730D06D00212339 /* Demos */,
+				5B3FC0A12872FF7D000F9BF5 /* DemoVCs */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -353,13 +359,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B3FC0AB2872FF7D000F9BF5 /* SMSCodeDemoVC.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
-				5BD107232730D29800212339 /* FloatDragDemoVC.swift in Sources */,
-				5B3C20F227EC915D00E1BB75 /* ExpandActionDemoVC.swift in Sources */,
+				5B3FC0AF2872FF7D000F9BF5 /* ExpandActionDemoVC.swift in Sources */,
+				5B3FC0AE2872FF7D000F9BF5 /* GradientViewDemoVC.swift in Sources */,
+				5B3FC0AC2872FF7D000F9BF5 /* EmptyBoardDemoVC.swift in Sources */,
+				5B3FC0AA2872FF7D000F9BF5 /* BadgeDemoVC.swift in Sources */,
+				5B3FC0A92872FF7D000F9BF5 /* FloatDragDemoVC.swift in Sources */,
+				5B3FC0AD2872FF7D000F9BF5 /* LinkDemoVC.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				5BD107212730D0D400212339 /* SMSCodeDemoVC.swift in Sources */,
-				5B42813827707C010017D2F0 /* BadgeDemoVC.swift in Sources */,
-				5BD1071F2730D0B300212339 /* EmptyBoardDemoVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
