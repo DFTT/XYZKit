@@ -41,7 +41,7 @@ public extension UIView {
     }
 }
 
-// MARK: tool
+// MARK: Frame/Bounds
 
 public extension UIView {
     var boundsCenter: CGPoint {
