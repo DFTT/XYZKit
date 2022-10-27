@@ -8,6 +8,8 @@ PODS:
     - XYZKit/Core
   - XYZKit/XYZFloatDragView (0.5.0):
     - XYZKit/Core
+  - XYZKit/XYZGuideView (0.5.0):
+    - XYZKit/Core
   - XYZKit/XYZLinkView (0.5.0):
     - XYZKit/Core
   - XYZKit/XYZSMSCodeInputView (0.5.0):
@@ -18,6 +20,7 @@ DEPENDENCIES:
   - XYZKit/XYZBadgeView (from `../`)
   - XYZKit/XYZEmptyBoard (from `../`)
   - XYZKit/XYZFloatDragView (from `../`)
+  - XYZKit/XYZGuideView (from `../`)
   - XYZKit/XYZLinkView (from `../`)
   - XYZKit/XYZSMSCodeInputView (from `../`)
 
@@ -26,8 +29,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  XYZKit: 23cd434472944c4298fd7de5db6a2bb591b9dad3
+  XYZKit: 3ddb09f4b09500f69eef9c4fbfc2e161424da261
 
-PODFILE CHECKSUM: 46ca24290e33f3f3955dded21c0b3312ca863eba
+PODFILE CHECKSUM: 7b96fd8b5a43197fee1bfe59a8fd4499e0da7ca4
 
 COCOAPODS: 1.11.3

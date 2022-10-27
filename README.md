@@ -7,6 +7,9 @@
 - [x] ```XYZFloatDragView```一个可拖拽的悬浮窗, 处理了SafeArea / 自动吸边
 - [x] ```XYZSMSCodeInputView```一个验证码输入视图
 - [x] ```XYZbadgeView```小红点角标
+- [x] ```XYZMsgBuffer```消息缓冲, 避免高频触发action导致的性能问题(target -> 缓冲器 -> action)
+- [x] ```XYZLinkView```文本中部分文字区域可点击(基于UITextView)
+- [x] ```XYZGuideView```新功能引导, 蒙层掏洞之类的
 - [ ] ```XYZCellLogUtil```cell展现/点击日志工具类
 
 

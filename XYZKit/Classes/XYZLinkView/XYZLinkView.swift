@@ -12,14 +12,14 @@ import Foundation
  1、绑定关键词和 响应点击事件
  2、支持多组关键词
  3、支持重复出现关键字
-*/
+ */
 
 public class XYZLinkView: UITextView {
     public typealias LinkTapBlock = () -> Void
 
     public var linkCases: [String: LinkTapBlock]? {
         didSet {
-            self.loadLinkTap()
+            self.setNeedsDisplay()
         }
     }
 
@@ -29,24 +29,24 @@ public class XYZLinkView: UITextView {
                 return
             }
             self.linkTextAttributes = [NSAttributedString.Key.foregroundColor: linkColor]
+            self.setNeedsDisplay()
         }
     }
 
-    func loadLinkTap() {
+    private func loadLinkTap() {
         var attr: NSMutableAttributedString?
-        if text != nil {
-            attr = NSMutableAttributedString(string: text)
-        }
 
         if self.attributedText != nil {
             attr = NSMutableAttributedString(attributedString: self.attributedText)
+        } else if text != nil {
+            attr = NSMutableAttributedString(string: text)
         }
 
         guard let linkCases = linkCases, let attr = attr else {
             return
         }
         for (_, key) in linkCases.keys.enumerated() {
-            let ranges:[NSRange] = text.kmpFindAll(key) // 查找所有子字符串 Range
+            let ranges: [NSRange] = text.kmpFindAll(key) // 查找所有子字符串 Range
             let path: String? = key.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             if path != nil {
                 for range in ranges {
@@ -58,23 +58,23 @@ public class XYZLinkView: UITextView {
         self.attributedText = attr
         self.delegate = self
     }
+
+    override public func draw(_ rect: CGRect) {
+        loadLinkTap()
+        super.draw(rect)
+    }
 }
 
 extension XYZLinkView: UITextViewDelegate {
     public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        if URL.scheme == "XYZLink" {
-            guard let key = URL.host else {
-                return false
-            }
-            guard let block: LinkTapBlock = linkCases?[key] else {
-                return false
-            }
+        if URL.scheme == "XYZLink", let key = URL.host, let block = linkCases?[key] {
             block()
         }
         return false
     }
+
     public func textViewDidChangeSelection(_ textView: UITextView) {
         // 禁止圈选
-        textView.selectedRange.length = 0;
+        textView.selectedRange.length = 0
     }
 }

@@ -69,6 +69,10 @@ class BadgeDemoVC: UIViewController {
         self.badge2 = badge2
         self.badge3 = badge3
         self.badge4 = badge4
+        
+        
+        let tip = UILabel(frame: CGRect(x: 0, y: 500, width: self.view.bounds.size.width, height: 50)).textColor(UIColor.black).text("点击屏幕试试").textAlignment(.center).font(20.font)
+        self.view.addSubview(tip)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

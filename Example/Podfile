@@ -1,6 +1,6 @@
 use_frameworks!
 
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'XYZKit_Example' do
 
@@ -11,6 +11,7 @@ target 'XYZKit_Example' do
   pod 'XYZKit/XYZSMSCodeInputView', :path => '../'
   pod 'XYZKit/XYZBadgeView', :path => '../'
   pod 'XYZKit/XYZLinkView', :path => '../'
+  pod 'XYZKit/XYZGuideView', :path => '../'
 
 
 

@@ -13,13 +13,13 @@ class ExpandActionDemoVC: UIViewController {
         super.viewDidLoad()
         view.bgColor(.white)
 
-        let btn = UIButton(type: .system)
+        let btn = UIButton(type: .custom)
             .bgColor(.red)
             .title("点我右面的空白处", for: .normal)
             .titleColor(.white, for: .normal)
-            .title("高亮啦", for: .highlighted)
-            .font(11.font)
-        btn.frame = CGRect(x: 80, y: 100, width: 100, height: 100)
+            .title("被点击啦", for: .highlighted)
+            .font(15.font)
+        btn.frame = CGRect(x: 80, y: 100, width: 150, height: 100)
         btn.expandInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 100)
         self.view.addSubview(btn)
 
