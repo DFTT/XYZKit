@@ -26,7 +26,7 @@ class ExpandActionDemoVC: UIViewController {
         let tview = UIView(frame: CGRect(x: 80, y: 210, width: 100, height: 100)).bgColor(.blue)
         tview.expandInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 100)
         tview.addTapGesture {
-            tview.bgColor(UIColor.randomColor())
+            tview.bgColor(UIColor.random())
         }
         self.view.addSubview(tview)
         

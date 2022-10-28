@@ -44,8 +44,22 @@ public extension UIView {
 // MARK: Frame/Bounds
 
 public extension UIView {
+    /// 自己坐标系中心坐标
     var boundsCenter: CGPoint {
         return CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
+    }
+
+    /// 图层中所属的ViewController
+    var viewController: UIViewController? {
+        var nextResp = self.next
+        while nextResp != nil {
+            if nextResp!.isKind(of: UIViewController.self) {
+                return (nextResp as! UIViewController)
+            } else {
+                nextResp = nextResp?.next
+            }
+        }
+        return nil
     }
 }
 

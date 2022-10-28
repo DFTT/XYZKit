@@ -52,7 +52,7 @@ public extension UIColor {
 
     /// 生成一个随机颜色
     /// - Returns: 随机色
-    static func randomColor() -> UIColor {
+    static func random() -> UIColor {
         let r = CGFloat(arc4random() % 256) / 255
         let g = CGFloat(arc4random() % 256) / 255
         let b = CGFloat(arc4random() % 256) / 255
