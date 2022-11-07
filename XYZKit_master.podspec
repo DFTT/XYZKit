@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/DFTT/XYZKit.git', :branch => 'master' }
 
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.swift_versions = ['5.0']
   s.frameworks     = 'Foundation', 'UIKit'
 
@@ -71,8 +71,13 @@ Pod::Spec.new do |s|
     ss.dependency 'XYZKit_master/Core'
     ss.source_files = 'XYZKit/Classes/XYZLinkView/**/*.swift'
   end
+  
 
-
+  #XYZGuideView
+  s.subspec 'XYZGuideView' do |ss|
+    ss.dependency 'XYZKit_master/Core'
+    ss.source_files = 'XYZKit/Classes/XYZGuideView/**/*.swift'
+  end
 
 
 
