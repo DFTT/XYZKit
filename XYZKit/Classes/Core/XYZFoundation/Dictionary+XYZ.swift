@@ -19,4 +19,13 @@ public extension Dictionary {
 
         return String(data: jsonData, encoding: .utf8)
     }
+
+    /// 以json的格式打印在控制台 更便于阅读
+    func prettyPrint() {
+        if let data = try? JSONSerialization.data(withJSONObject: self, options: .prettyPrinted), let jsonStr = String(data: data, encoding: .utf8) {
+            print(jsonStr)
+        } else {
+            print(self)
+        }
+    }
 }
