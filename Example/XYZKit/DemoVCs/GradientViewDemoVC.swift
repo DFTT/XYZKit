@@ -60,9 +60,22 @@ class GradientViewDemoVC: UIViewController {
         self.view.addSubview(view)
         
         // 径向渐变view 仅双色
-        let view2 = XYZGradientView(frame: CGRect(x: 100, y: 340, width: 200, height: 200))
+        let view2 = XYZGradientView(frame: CGRect(x: 100, y: 340, width: 150, height: 150))
         view2.direction = .radial(start: CGPoint(x: 0, y: 0), startRadius: 0, end: CGPoint(x: 1, y: 1), endRadius: sqrt(200*200*2))
         view2.colors = [UIColor.red, UIColor.green]
         self.view.addSubview(view2)
+        
+        // 透明渐变view
+        let bg = UILabel(frame: CGRect(x: 100, y: 510, width: 200, height: 80))
+        bg.text = "我是一个文字背景, 我的背景色是白色, 我上面有一个 透明到白色的渐变遮罩,"
+        bg.numberOfLines = 0
+//        bg.backgroundColor = .red
+        self.view.addSubview(bg)
+
+        let view3 = XYZGradientView(frame: CGRect(x: 0, y: 30, width: 200, height: 50))
+        view3.direction = .vertical
+        view3.locations = [0, 0.8]
+        view3.colors = [UIColor.white.withAlphaComponent(0), UIColor.white]
+        bg.addSubview(view3)
     }
 }

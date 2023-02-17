@@ -18,6 +18,7 @@ public class XYZGradientView: UIView {
         /// 右上到左下
         case rightTopToLeftBottom
         /// 其他线性方向.
+        /// 横/纵范围[0, 1]
         case linear(start: CGPoint, end: CGPoint)
         /// 径向渐变 (仅可用于 XYZGradientView)
         ///  start / end : 范围[0, 1]
@@ -27,9 +28,9 @@ public class XYZGradientView: UIView {
         public func points() -> (start: CGPoint, end: CGPoint) {
             switch self {
             case .horizontal:
-                return (CGPoint(x: 0, y: 0), CGPoint(x: 1, y: 0))
+                return (CGPoint(x: 0, y: 0.5), CGPoint(x: 1, y: 0.5))
             case .vertical:
-                return (CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 1))
+                return (CGPoint(x: 0.5, y: 0), CGPoint(x: 0.5, y: 1))
             case .leftTopToRightBottom:
                 return (CGPoint(x: 0, y: 0), CGPoint(x: 1, y: 1))
             case .rightTopToLeftBottom:
@@ -40,6 +41,17 @@ public class XYZGradientView: UIView {
                 return (start, end)
             }
         }
+    }
+
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+        // 支持绘制透明色 否则透明色会变成黑色
+        backgroundColor = .white.withAlphaComponent(0)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     /// 渐变方向
