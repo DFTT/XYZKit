@@ -17,13 +17,9 @@ public class XYZGradientView: UIView {
         case leftTopToRightBottom
         /// 右上到左下
         case rightTopToLeftBottom
-        /// 其他线性方向.
+        /// 自定义线性方向.
         /// 横/纵范围[0, 1]
         case linear(start: CGPoint, end: CGPoint)
-        /// 径向渐变 (仅可用于 XYZGradientView)
-        ///  start / end : 范围[0, 1]
-        ///  startRadius / endRadius : 单位是pt
-        case radial(start: CGPoint, startRadius: CGFloat, end: CGPoint, endRadius: CGFloat)
 
         public func points() -> (start: CGPoint, end: CGPoint) {
             switch self {
@@ -37,27 +33,24 @@ public class XYZGradientView: UIView {
                 return (CGPoint(x: 1, y: 0), CGPoint(x: 0, y: 1))
             case .linear(let start, let end):
                 return (start, end)
-            case .radial(let start, _, let end, _):
-                return (start, end)
             }
         }
     }
 
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-        // 支持绘制透明色 否则透明色会变成黑色
-        backgroundColor = .white.withAlphaComponent(0)
+    override public class var layerClass: AnyClass {
+        return CAGradientLayer.self
     }
 
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    public var type: CAGradientLayerType = .axial {
+        didSet {
+            self.syncConfig()
+        }
     }
 
     /// 渐变方向
     public var direction: XYZGradientDirection = .horizontal {
         didSet {
-            setNeedsDisplay()
+            self.syncConfig()
         }
     }
 
@@ -65,41 +58,29 @@ public class XYZGradientView: UIView {
     /// 线性渐变 可多色
     public var colors: [UIColor] = [] {
         didSet {
-            setNeedsDisplay()
+            self.syncConfig()
         }
     }
 
     /// 渐变颜色分布位置 (例如: [0, 0.5, 1])
     public var locations: [Float]? {
         didSet {
-            setNeedsDisplay()
+            self.syncConfig()
         }
     }
 
-    override public func draw(_ rect: CGRect) {
-        super.draw(rect)
-
-        guard colors.isEmpty == false, let ctx = UIGraphicsGetCurrentContext() else { return }
-
-        let colorArr = colors.map { $0.cgColor } as CFArray
-        let locationArr = locations?.map { CGFloat($0) }
-        let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colorArr, locations: locationArr)
-
-        if gradient != nil {
-            if case .radial(let start, let startRadius, let end, let endRadius) = direction {
-                ctx.drawRadialGradient(gradient!,
-                                       startCenter: __CGPointApplyAffineTransform(start, CGAffineTransform(scaleX: rect.size.width, y: rect.size.height)),
-                                       startRadius: startRadius,
-                                       endCenter: __CGPointApplyAffineTransform(end, CGAffineTransform(scaleX: rect.size.width, y: rect.size.height)),
-                                       endRadius: endRadius,
-                                       options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
-
-            } else {
-                ctx.drawLinearGradient(gradient!,
-                                       start: __CGPointApplyAffineTransform(direction.points().start, CGAffineTransform(scaleX: rect.size.width, y: rect.size.height)),
-                                       end: __CGPointApplyAffineTransform(direction.points().end, CGAffineTransform(scaleX: rect.size.width, y: rect.size.height)),
-                                       options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
-            }
+    override public func willMove(toWindow newWindow: UIWindow?) {
+        if newWindow != nil {
+            syncConfig()
         }
+    }
+
+    private func syncConfig() {
+        let layer = (self.layer as! CAGradientLayer)
+        layer.type = type
+        layer.locations = locations?.map { NSNumber(value: $0 as Float) }
+        layer.colors = colors.map { $0.cgColor }
+        layer.startPoint = direction.points().0
+        layer.endPoint = direction.points().1
     }
 }

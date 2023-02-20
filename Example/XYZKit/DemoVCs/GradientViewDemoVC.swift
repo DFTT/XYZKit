@@ -37,21 +37,17 @@ class GradientViewDemoVC: UIViewController {
         // 渐变layer
         let layer = CAGradientLayer()
         layer.frame = CGRect(x: 10, y: 100, width: 100, height: 100)
-        layer.gradient(colors: [UIColor.random().cgColor, UIColor.random().cgColor, UIColor.random().cgColor])
+        layer.gradient(colors: [UIColor.red.cgColor, UIColor.green.cgColor, UIColor.blue.cgColor])
         self.view.layer.addSublayer(layer)
         
         let layer2 = CAGradientLayer()
         layer2.frame = CGRect(x: 120, y: 100, width: 100, height: 100)
-        layer2.gradient(.linear(start: CGPoint(x: 0.5, y: 0.5), end: CGPoint(x: 1, y: 1)), colors: [UIColor.random().cgColor, UIColor.random().cgColor])
-        layer2.type = CAGradientLayerType.radial
-        layer2.endPoint = CGPoint(x: 1, y: 1)
+        layer2.radialGradient(colors: [UIColor.red.cgColor, UIColor.green.cgColor, UIColor.blue.cgColor])
         self.view.layer.addSublayer(layer2)
         
         let layer3 = CAGradientLayer()
         layer3.frame = CGRect(x: 230, y: 100, width: 100, height: 100)
-        layer2.gradient(.linear(start: CGPoint(x: 0.5, y: 0.5), end: CGPoint(x: 1, y: 1)), colors: [UIColor.random().cgColor, UIColor.random().cgColor, UIColor.random().cgColor])
-        layer3.type = CAGradientLayerType.conic
-        layer3.startPoint = CGPoint(x: 0.5, y: 0.5)
+        layer3.conicGradient(colors: [UIColor.red.cgColor, UIColor.green.cgColor, UIColor.blue.cgColor])
         self.view.layer.addSublayer(layer3)
         
         // 渐变view
@@ -59,10 +55,11 @@ class GradientViewDemoVC: UIViewController {
         view.colors = [UIColor.red, UIColor.green, UIColor.blue]
         self.view.addSubview(view)
         
-        // 径向渐变view 仅双色
+        // 圆锥渐变view 仅双色
         let view2 = XYZGradientView(frame: CGRect(x: 100, y: 340, width: 150, height: 150))
-        view2.direction = .radial(start: CGPoint(x: 0, y: 0), startRadius: 0, end: CGPoint(x: 1, y: 1), endRadius: sqrt(200*200*2))
-        view2.colors = [UIColor.red, UIColor.green]
+        view2.type = .conic
+        view2.direction = .linear(start: CGPoint(x: 0.5, y: 0.5), end: CGPoint(x: 0.5, y: 1))
+        view2.colors = [UIColor.red, UIColor.green, UIColor.blue]
         self.view.addSubview(view2)
         
         // 透明渐变view
@@ -74,7 +71,7 @@ class GradientViewDemoVC: UIViewController {
 
         let view3 = XYZGradientView(frame: CGRect(x: 0, y: 30, width: 200, height: 50))
         view3.direction = .vertical
-        view3.locations = [0, 0.8]
+        view3.locations = [0, 0.9]
         view3.colors = [UIColor.white.withAlphaComponent(0), UIColor.white]
         bg.addSubview(view3)
     }
