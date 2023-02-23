@@ -91,6 +91,31 @@ public extension UIView {
     }
 }
 
+// MARK: 获取某一点颜色
+
+public extension UIView {
+    func colorWithPoint(_ point: CGPoint) -> UIColor? {
+        guard self.bounds.contains(point) else {
+            return nil
+        }
+
+        let colorspace = CGColorSpaceCreateDeviceRGB()
+        var rgba: [UInt8] = [0, 0, 0, 0]
+        guard let bitmapCtx = CGContext(data: &rgba, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: colorspace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else {
+            return nil
+        }
+        bitmapCtx.translateBy(x: -point.x, y: -point.y)
+
+        self.layer.render(in: bitmapCtx)
+
+        let r = CGFloat(rgba[0]) / CGFloat(255)
+        let g = CGFloat(rgba[1]) / CGFloat(255)
+        let b = CGFloat(rgba[2]) / CGFloat(255)
+        let a = CGFloat(rgba[3]) / CGFloat(255)
+        return UIColor(red: r, green: g, blue: b, alpha: a)
+    }
+}
+
 // MARK: Animation
 
 public extension UIView {
