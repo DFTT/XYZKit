@@ -25,7 +25,7 @@
 		92B48432CB73E99B9B06604BF6F3FB7B /* UIView+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29DDC838303374443797F85C74F753C /* UIView+XYZ.swift */; };
 		9B2555BC17B37B523CE917ABE474A02B /* String+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937E96398912F33D13C76168BADB1C08 /* String+XYZ.swift */; };
 		9F49B05230E6573BB9DAAB9191E720AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
-		9F9CBD30BBCF2390B3342A316698459B /* UIImage+XYZ.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88100C670C1B79462D41B308560B6CE4 /* UIImage+XYZ.swift.swift */; };
+		9F9CBD30BBCF2390B3342A316698459B /* UIImage+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88100C670C1B79462D41B308560B6CE4 /* UIImage+XYZ.swift */; };
 		A0429BF2D88AD3933D2E0930EAF27219 /* UIImageView+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCC836BAF476A09F6A27E08B97E2147 /* UIImageView+XYZ.swift */; };
 		A9B621D97EA55B1D818E5D29A0A87A2C /* ListenerBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D7C80E7C124E0C033E8A91922239AD /* ListenerBox.swift */; };
 		B849FE88734B007C0A03D8CDB2869E55 /* XYZFloatDragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078342A64E5D06DE7B4AA098D119B2 /* XYZFloatDragView.swift */; };
@@ -90,7 +90,7 @@
 		7D1C435F5D6AF2F02F4BFFE2B863CE1A /* Pods-XYZKit_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-XYZKit_Example-umbrella.h"; sourceTree = "<group>"; };
 		80F2322EB8755414792D00A0C8A3FB67 /* XYZKit */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = XYZKit; path = XYZKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		87DBA70A1991455B4C79A090CBA6EAEA /* XYZKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XYZKit-umbrella.h"; sourceTree = "<group>"; };
-		88100C670C1B79462D41B308560B6CE4 /* UIImage+XYZ.swift.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+XYZ.swift.swift"; sourceTree = "<group>"; };
+		88100C670C1B79462D41B308560B6CE4 /* UIImage+XYZ.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+XYZ.swift"; sourceTree = "<group>"; };
 		8CCC836BAF476A09F6A27E08B97E2147 /* UIImageView+XYZ.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImageView+XYZ.swift"; sourceTree = "<group>"; };
 		917FB6E85DEC1029A7A731C721806E48 /* URL+XYZ.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "URL+XYZ.swift"; sourceTree = "<group>"; };
 		937E96398912F33D13C76168BADB1C08 /* String+XYZ.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "String+XYZ.swift"; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 				FFE347E758F8BB85ECE016927CA6376B /* UIBUtton+XYZ.swift */,
 				C023CD329CD27E94128DD6A5C8EAC040 /* UIColor+XYZ.swift */,
 				B1BEB948B621BD291CD23F8132F2932E /* UIFont+XYZ.swift */,
-				88100C670C1B79462D41B308560B6CE4 /* UIImage+XYZ.swift.swift */,
+				88100C670C1B79462D41B308560B6CE4 /* UIImage+XYZ.swift */,
 				8CCC836BAF476A09F6A27E08B97E2147 /* UIImageView+XYZ.swift */,
 				34A7529ED0E3A371CB517F0B9B5A8739 /* UILabel+XYZ.swift */,
 				F4C239977644139503605DE475744857 /* UITapGestureRecognizer+XYZ.swift */,
@@ -541,7 +541,7 @@
 				5B3F2D28290B763F00CF3DDD /* XYZGradientView.swift in Sources */,
 				BFED22A5815AF0661784A8F1002A4A18 /* UIColor+XYZ.swift in Sources */,
 				0CB854ADC4EEDB4E7ECCCD4743713141 /* UIFont+XYZ.swift in Sources */,
-				9F9CBD30BBCF2390B3342A316698459B /* UIImage+XYZ.swift.swift in Sources */,
+				9F9CBD30BBCF2390B3342A316698459B /* UIImage+XYZ.swift in Sources */,
 				A0429BF2D88AD3933D2E0930EAF27219 /* UIImageView+XYZ.swift in Sources */,
 				BEBB0669F80B61968CE9BB74AE4AF98A /* UILabel+XYZ.swift in Sources */,
 				5183514495ADD552597A7352CF0C32D3 /* UITapGestureRecognizer+XYZ.swift in Sources */,

@@ -58,6 +58,7 @@ class BadgeDemoVC: UIViewController {
         badge3.contentView.text = "哈哈哈哈"
         badge3.contentView.font = 14.fontBold
         badge3.contentView.padding = UIEdgeInsets(top: 1, left: 5, bottom: 1, right: 5)
+        badge3.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
         ___addBdView(badge3, to: view3)
         
         let view4 = UIView(frame: CGRect(x: 100, y: 400, width: 50, height: 50)).bgColor(.blue)
@@ -80,7 +81,9 @@ class BadgeDemoVC: UIViewController {
 
         self.badge1.shakeAnimation()
         self.badge2.bounceAnimation()
-        self.badge3.swingAnimtion()
-        self.badge4.bounceAnimation()
+        
+        self.badge4.swingAnimtion()
+        
+        self.badge3.contentView.text = arc4random() % 2 == 1 ? "哈哈哈哈" : "嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿"
     }
 }

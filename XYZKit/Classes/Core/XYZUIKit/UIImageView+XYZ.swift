@@ -15,4 +15,16 @@ public extension UIImageView {
         self.image = image
         self.contentMode = contentMode
     }
+
+    @discardableResult
+    func image(_ img: UIImage?) -> Self {
+        self.image = img
+        return self
+    }
+
+    @discardableResult
+    func fillMode(_ cntMode: UIView.ContentMode) -> Self {
+        self.contentMode = cntMode
+        return self
+    }
 }

@@ -34,6 +34,12 @@ public extension UIView {
     }
 
     @discardableResult
+    func tintColor(_ color: UIColor) -> Self {
+        self.tintColor = color
+        return self
+    }
+
+    @discardableResult
     func clipsCornerRadius(_ radius: Float) -> Self {
         self.clipsToBounds = true
         self.layer.cornerRadius = CGFloat(radius)
