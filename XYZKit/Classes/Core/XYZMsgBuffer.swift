@@ -24,7 +24,7 @@ public class XYZMsgBuffer {
 
     public enum BufferMessageCoalescing: Int {
         case discardOld // name相同时, 覆盖老的
-        case discardNest // name相同时, 丢弃新的
+        case discardNew // name相同时, 丢弃新的
         case coalescingData // name相同时, 合并数据(会保持消息的先后顺序)
     }
 
@@ -65,14 +65,12 @@ public class XYZMsgBuffer {
             switch coalescing {
             case .discardOld:
                 self.messagesMap[msg.name] = msg
-            case .discardNest:
+            case .discardNew:
                 if self.messagesMap[msg.name] == nil {
                     self.messagesMap[msg.name] = msg
                 }
             case .coalescingData:
                 if let old = self.messagesMap[msg.name] {
-                    var newDatas = Array(old.datas)
-                    newDatas.append(contentsOf: msg.datas)
                     self.messagesMap[msg.name] = BufferMsssage(name: msg.name, datas: old.datas + msg.datas)
                 } else {
                     self.messagesMap[msg.name] = msg
@@ -81,7 +79,7 @@ public class XYZMsgBuffer {
 
             if flush {
                 self.delayTimer?.invalidate()
-                self.outputFire()
+                self.output()
             } else {
                 self.tryOutput()
             }
@@ -92,7 +90,7 @@ public class XYZMsgBuffer {
     private func tryOutput() {
         /// 第一次 直接回调
         guard self.lastFireDate > 0 else {
-            outputFire()
+            output()
             return
         }
 
@@ -105,7 +103,7 @@ public class XYZMsgBuffer {
         guard intervel >= 0.1 else {
             /// 已大于时间间隔 || 剩余时间过短直接回调, 太短的时间开启定时器延时回调可能不准
             delayTimer?.invalidate()
-            outputFire()
+            output()
             return
         }
 
@@ -113,13 +111,13 @@ public class XYZMsgBuffer {
         self.delayTimer?.invalidate()
         self.delayTimer = Timer(timeInterval: intervel, repeats: false) { [weak self] timer in
             timer.invalidate()
-            self?.outputFire()
+            self?.output()
         }
         RunLoop.main.add(self.delayTimer!, forMode: .common)
     }
 
     /// 输出缓存中的数据
-    private func outputFire() {
+    private func output() {
         let tmpMsgs = self.messagesMap
         guard tmpMsgs.isEmpty == false else { return }
 

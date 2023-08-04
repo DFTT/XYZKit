@@ -11,6 +11,7 @@
 		5B3C20F227EC915D00E1BB75 /* ExpandActionDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3C20F127EC915D00E1BB75 /* ExpandActionDemoVC.swift */; };
 		5B42813827707C010017D2F0 /* BadgeDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B42813727707C010017D2F0 /* BadgeDemoVC.swift */; };
 		5BAF2DA628F81EDD0006B139 /* MsgBufferDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF2DA528F81EDD0006B139 /* MsgBufferDemoVC.swift */; };
+		5BB2A9F62A7D05EC0057F568 /* ImgeDownSamplingDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2A9F52A7D05EC0057F568 /* ImgeDownSamplingDemoVC.swift */; };
 		5BD1071F2730D0B300212339 /* EmptyBoardDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1071E2730D0B300212339 /* EmptyBoardDemoVC.swift */; };
 		5BD107212730D0D400212339 /* SMSCodeDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD107202730D0D400212339 /* SMSCodeDemoVC.swift */; };
 		5BD107232730D29800212339 /* FloatDragDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD107222730D29800212339 /* FloatDragDemoVC.swift */; };
@@ -43,6 +44,7 @@
 		5B3C20F127EC915D00E1BB75 /* ExpandActionDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandActionDemoVC.swift; sourceTree = "<group>"; };
 		5B42813727707C010017D2F0 /* BadgeDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDemoVC.swift; sourceTree = "<group>"; };
 		5BAF2DA528F81EDD0006B139 /* MsgBufferDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgBufferDemoVC.swift; sourceTree = "<group>"; };
+		5BB2A9F52A7D05EC0057F568 /* ImgeDownSamplingDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgeDownSamplingDemoVC.swift; sourceTree = "<group>"; };
 		5BD1071E2730D0B300212339 /* EmptyBoardDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyBoardDemoVC.swift; sourceTree = "<group>"; };
 		5BD107202730D0D400212339 /* SMSCodeDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSCodeDemoVC.swift; sourceTree = "<group>"; };
 		5BD107222730D29800212339 /* FloatDragDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatDragDemoVC.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				C6EA97F82811702F00EBCAEA /* GradientViewDemoVC.swift */,
 				7F941D67282BEC5A007C8D46 /* GuideDemoVC.swift */,
 				5BAF2DA528F81EDD0006B139 /* MsgBufferDemoVC.swift */,
+				5BB2A9F52A7D05EC0057F568 /* ImgeDownSamplingDemoVC.swift */,
 			);
 			path = DemoVCs;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				5BAF2DA628F81EDD0006B139 /* MsgBufferDemoVC.swift in Sources */,
 				C6EA97F92811702F00EBCAEA /* GradientViewDemoVC.swift in Sources */,
 				5B3C20F227EC915D00E1BB75 /* ExpandActionDemoVC.swift in Sources */,
+				5BB2A9F62A7D05EC0057F568 /* ImgeDownSamplingDemoVC.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				5BD107212730D0D400212339 /* SMSCodeDemoVC.swift in Sources */,
 				5B42813827707C010017D2F0 /* BadgeDemoVC.swift in Sources */,

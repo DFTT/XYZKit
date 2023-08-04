@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         dataArr.append(VCCellItem(name: "渐变图层(待补充???)", vcClass: GradientViewDemoVC.self))
         dataArr.append(VCCellItem(name: "新功能引导(镂空)", vcClass: GuideDemoVC.self))
         dataArr.append(VCCellItem(name: "降频buffer", vcClass: MsgBufferDemoVC.self))
+        dataArr.append(VCCellItem(name: "UIImage下采样", vcClass: ImgeDownSamplingDemoVC.self))
 
         let tabView = UITableView(frame: self.view.bounds, style: .plain)
         tabView.delegate = self
