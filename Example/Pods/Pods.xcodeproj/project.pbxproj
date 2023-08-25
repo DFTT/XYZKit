@@ -14,6 +14,7 @@
 		3B402CE392739955C32ED5436F867404 /* XYZAssociatedKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DDF2C2FD8441C2E37AE9EBA8DE829A /* XYZAssociatedKeys.swift */; };
 		3E0E1B1C61328E57DA64B81E992F5034 /* XYZMsgBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F946E02327C8F4DF7E94D0B4F143147B /* XYZMsgBuffer.swift */; };
 		5183514495ADD552597A7352CF0C32D3 /* UITapGestureRecognizer+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C239977644139503605DE475744857 /* UITapGestureRecognizer+XYZ.swift */; };
+		5B08EBA42A98ADAD00A328F3 /* KeyBoardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B08EBA32A98ADAD00A328F3 /* KeyBoardObserver.swift */; };
 		5B2B6DE829139A670088FB50 /* UINavigationController+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2B6DE729139A670088FB50 /* UINavigationController+XYZ.swift */; };
 		5B3F2D28290B763F00CF3DDD /* XYZGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F2D27290B763F00CF3DDD /* XYZGradientView.swift */; };
 		5F55BA887DBB0D6760F0FCEE51F04A20 /* UIBUtton+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE347E758F8BB85ECE016927CA6376B /* UIBUtton+XYZ.swift */; };
@@ -27,7 +28,6 @@
 		9F49B05230E6573BB9DAAB9191E720AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
 		9F9CBD30BBCF2390B3342A316698459B /* UIImage+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88100C670C1B79462D41B308560B6CE4 /* UIImage+XYZ.swift */; };
 		A0429BF2D88AD3933D2E0930EAF27219 /* UIImageView+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCC836BAF476A09F6A27E08B97E2147 /* UIImageView+XYZ.swift */; };
-		A9B621D97EA55B1D818E5D29A0A87A2C /* ListenerBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D7C80E7C124E0C033E8A91922239AD /* ListenerBox.swift */; };
 		B849FE88734B007C0A03D8CDB2869E55 /* XYZFloatDragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078342A64E5D06DE7B4AA098D119B2 /* XYZFloatDragView.swift */; };
 		BB91A929A0A8AF80CCB6CCA9DAF1EA84 /* XYZKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DBA70A1991455B4C79A090CBA6EAEA /* XYZKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEBB0669F80B61968CE9BB74AE4AF98A /* UILabel+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7529ED0E3A371CB517F0B9B5A8739 /* UILabel+XYZ.swift */; };
@@ -70,7 +70,6 @@
 		1F57F69C376D6126604AD6B719305669 /* Pods-XYZKit_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-XYZKit_Tests-Info.plist"; sourceTree = "<group>"; };
 		200A9E83083ABA743855CD766B2E9E86 /* XYZSMSCodeInputView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XYZSMSCodeInputView.swift; path = XYZKit/Classes/XYZSMSCodeInputView/XYZSMSCodeInputView.swift; sourceTree = "<group>"; };
 		22F3835AC74EE7F7EBB070D62408FFB0 /* XYZLinkView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XYZLinkView.swift; path = XYZKit/Classes/XYZLinkView/XYZLinkView.swift; sourceTree = "<group>"; };
-		26D7C80E7C124E0C033E8A91922239AD /* ListenerBox.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ListenerBox.swift; path = XYZKit/Classes/Core/ListenerBox.swift; sourceTree = "<group>"; };
 		2740545D48DDF5A2DBB1990A14C659F2 /* XYZKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "XYZKit-Info.plist"; sourceTree = "<group>"; };
 		29203D5B812BEF23A4428B8EE5D0DCE8 /* XYZKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XYZKit-prefix.pch"; sourceTree = "<group>"; };
 		32E320799ECE0A73B5EB4EC05F31540D /* Int+XYZ.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Int+XYZ.swift"; sourceTree = "<group>"; };
@@ -78,6 +77,7 @@
 		34A7529ED0E3A371CB517F0B9B5A8739 /* UILabel+XYZ.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UILabel+XYZ.swift"; sourceTree = "<group>"; };
 		5025836F5CB094834B77A0B0842E3606 /* Pods-XYZKit_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-XYZKit_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		54FB37C3F70F44ACAE4B5EACEB1D858D /* Pods-XYZKit_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-XYZKit_Tests"; path = Pods_XYZKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B08EBA32A98ADAD00A328F3 /* KeyBoardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyBoardObserver.swift; path = XYZKit/Classes/Core/KeyBoardObserver.swift; sourceTree = "<group>"; };
 		5B2B6DE729139A670088FB50 /* UINavigationController+XYZ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+XYZ.swift"; sourceTree = "<group>"; };
 		5B3F2D27290B763F00CF3DDD /* XYZGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZGradientView.swift; sourceTree = "<group>"; };
 		5DA2493D2D3FFD757C2AE7BDA631E3EA /* Pods-XYZKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-XYZKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -280,9 +280,9 @@
 		B45EC7AD5297A77988A313CAB3379807 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				26D7C80E7C124E0C033E8A91922239AD /* ListenerBox.swift */,
 				C4DDF2C2FD8441C2E37AE9EBA8DE829A /* XYZAssociatedKeys.swift */,
 				F946E02327C8F4DF7E94D0B4F143147B /* XYZMsgBuffer.swift */,
+				5B08EBA32A98ADAD00A328F3 /* KeyBoardObserver.swift */,
 				C9057F1E9E48E6860F03453CA177B68E /* XYZFoundation */,
 				9B21A52E6394728755B76D33A08D0BD4 /* XYZUIKit */,
 			);
@@ -533,9 +533,9 @@
 			files = (
 				C5F49D134C886554E729CC86084EE87B /* Array+XYZ.swift in Sources */,
 				D6E4C430A52A150BD628E6D3A4E6E1B7 /* CAGradientLayer+XYZ.swift in Sources */,
+				5B08EBA42A98ADAD00A328F3 /* KeyBoardObserver.swift in Sources */,
 				81FE4512C65B06FBD04FDAA29640C5E2 /* Dictionary+XYZ.swift in Sources */,
 				06303DF6F355D5231CCC097ECE99B3B3 /* Int+XYZ.swift in Sources */,
-				A9B621D97EA55B1D818E5D29A0A87A2C /* ListenerBox.swift in Sources */,
 				9B2555BC17B37B523CE917ABE474A02B /* String+XYZ.swift in Sources */,
 				5F55BA887DBB0D6760F0FCEE51F04A20 /* UIBUtton+XYZ.swift in Sources */,
 				5B3F2D28290B763F00CF3DDD /* XYZGradientView.swift in Sources */,
