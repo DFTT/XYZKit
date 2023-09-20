@@ -22,6 +22,15 @@ public class XYZFloatDragView: UIView {
         }
     }
 
+    public var enable: Bool = true {
+        didSet {
+            self.enableDrag = enable
+            if self.window != nil {
+                self.setAutoDockIfNeed()
+            }
+        }
+    }
+
     override public init(frame: CGRect) {
         dock = .horizontal
         super.init(frame: frame)
@@ -49,16 +58,17 @@ private extension UIView {
             objc_setAssociatedObject(self, &float_AssociatedKeys.enabledrag, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
             if newValue {
+                // 需要拖动 强制开启
                 self.isUserInteractionEnabled = true
             }
 
             var panGes = self.float_panGesture
             if panGes == nil {
                 panGes = UIPanGestureRecognizer(target: self, action: #selector(float_pangesAction(_:)))
+                self.addGestureRecognizer(panGes!)
                 self.float_panGesture = panGes
             }
             panGes!.isEnabled = newValue
-            self.addGestureRecognizer(panGes!)
         }
         get {
             return (objc_getAssociatedObject(self, &float_AssociatedKeys.enabledrag) as? Bool) ?? false
