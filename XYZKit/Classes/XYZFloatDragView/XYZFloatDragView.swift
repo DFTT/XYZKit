@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class XYZFloatDragView: UIView {
+open class XYZFloatDragView: UIView {
     public enum DockDirection: Int {
         case horizontal
         case left
