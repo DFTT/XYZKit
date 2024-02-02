@@ -11,6 +11,7 @@ import UIKit
 // MARK: Creat from Color
 
 public extension UIImage {
+    /// 生成一个纯色图片
     static func image(with color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, 1)
         let ctx = UIGraphicsGetCurrentContext()
@@ -18,6 +19,26 @@ public extension UIImage {
         ctx?.fill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        return image
+    }
+
+    /// 生成一个渐变色图片
+    static func image(with size: CGSize = CGSize(width: 1, height: 1),
+                      gradientDirection: XYZGradientView.XYZGradientDirection = .horizontal,
+                      colors: [UIColor],
+                      locations: [NSNumber]? = nil) -> UIImage?
+    {
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        guard let ctx = UIGraphicsGetCurrentContext() else { return nil }
+
+        let glayer = CAGradientLayer()
+        glayer.frame = CGRect(origin: .zero, size: size)
+        glayer.gradient(gradientDirection, colors: colors.map { $0.cgColor }, locations: locations)
+        glayer.render(in: ctx)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
         return image
     }
 }
@@ -47,7 +68,7 @@ public extension UIImage {
         guard let data = self.pngData(), let source = CGImageSourceCreateWithData(data as CFData, nil) else { return nil }
         let attr = [kCGImageSourceCreateThumbnailWithTransform: true,
                     kCGImageSourceCreateThumbnailFromImageAlways: true,
-                    kCGImageSourceThumbnailMaxPixelSize: max(pixcelSize.width, pixcelSize.height)] as CFDictionary
+                    kCGImageSourceThumbnailMaxPixelSize: max(pixcelSize.width, pixcelSize.height)] as [CFString: Any] as CFDictionary
         guard let imgref = CGImageSourceCreateThumbnailAtIndex(source, 0, attr) else { return nil }
         return UIImage(cgImage: imgref)
     }

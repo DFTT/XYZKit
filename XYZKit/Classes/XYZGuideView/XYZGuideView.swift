@@ -9,17 +9,7 @@ import UIKit
 
 /// 引导图
 public class XYZGuideView: UIView {
-    private let inView: UIView // 引导图显示在其上
-    
-    private var targetViews: [UIView] = [] // 需要镂空的视图
-    
-    private var hollowRects: [CGRect] = [] // 镂空的位置
-    
-    private lazy var annotations: [UIView] = [] // 添加的标注
-    
     public var tapHide: Bool = false // 点击背景释放
-    
-    private var bezierPath: UIBezierPath?
     
     public convenience init(in view: UIView) {
         self.init(inView: view)
@@ -53,12 +43,6 @@ public class XYZGuideView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func markMask() {
-        let shape = CAShapeLayer()
-        shape.path = bezierPath?.cgPath
-        self.layer.mask = shape
     }
     
     /// 显示目标区域镂空
@@ -137,5 +121,21 @@ public class XYZGuideView: UIView {
             }
         }
         return self
+    }
+    
+    private var bezierPath: UIBezierPath?
+    
+    private let inView: UIView // 引导图显示在其上
+    
+    private var targetViews: [UIView] = [] // 需要镂空的视图
+    
+    private var hollowRects: [CGRect] = [] // 镂空的位置
+    
+    private lazy var annotations: [UIView] = [] // 添加的标注
+    
+    private func markMask() {
+        let shape = CAShapeLayer()
+        shape.path = bezierPath?.cgPath
+        self.layer.mask = shape
     }
 }

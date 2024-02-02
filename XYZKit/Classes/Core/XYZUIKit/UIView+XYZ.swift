@@ -10,6 +10,12 @@
 
 public extension UIView {
     @discardableResult
+    func frame(_ rect: CGRect) -> Self {
+        self.frame = rect
+        return self
+    }
+
+    @discardableResult
     func bgColor(_ color: UIColor?) -> Self {
         self.backgroundColor = color
         return self

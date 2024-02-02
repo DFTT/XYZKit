@@ -61,6 +61,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell = UITableViewCell(style: .default, reuseIdentifier: idStr)
         }
         cell!.textLabel?.text = dataArr[indexPath.row].name
+
         return cell!
     }
 

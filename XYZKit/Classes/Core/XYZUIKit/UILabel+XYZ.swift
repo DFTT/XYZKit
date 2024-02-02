@@ -18,6 +18,12 @@ public extension UILabel {
     }
 
     @discardableResult
+    func attributedText(_ atts: NSAttributedString?) -> Self {
+        self.attributedText = atts
+        return self
+    }
+
+    @discardableResult
     func font(_ font: UIFont) -> Self {
         self.font = font
         return self
@@ -30,14 +36,14 @@ public extension UILabel {
     }
 
     @discardableResult
-    func numberOfLines(_ num: Int) -> Self {
-        self.numberOfLines = num
+    func textAlignment(_ alignment: NSTextAlignment) -> Self {
+        self.textAlignment = alignment
         return self
     }
 
     @discardableResult
-    func textAlignment(_ alignment: NSTextAlignment) -> Self {
-        self.textAlignment = alignment
+    func numberOfLines(_ num: Int) -> Self {
+        self.numberOfLines = num
         return self
     }
 }

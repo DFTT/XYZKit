@@ -20,6 +20,19 @@ public extension String {
         return UIColor(rgbString: self)
     }
 
+    /// 尝试解析为bool
+    var bool: Bool {
+        let ss = self.trimmed.lowercased()
+        switch ss {
+        case "true", "yes", "1":
+            return true
+        case "false", "no", "0":
+            return false
+        default:
+            return !ss.isEmpty // 兜底, 不为空 即为true
+        }
+    }
+
     /// 转换为对应的json对象
     func toJSONObject() -> Any? {
         guard let data = self.data(using: .utf8) else { return nil }
@@ -28,8 +41,23 @@ public extension String {
     }
 
     /// 清理串首尾的空格及换行
-    var trimmingWhitespacesAndNewlines: String {
+    var trimmed: String {
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+
+    /// 检查字符串是否包含一个或多个数字
+    ///   "abcd".hasNumbers -> false
+    ///   "123abc".hasNumbers -> true
+    var containsDigits: Bool {
+        return rangeOfCharacter(from: .decimalDigits, options: .literal, range: nil) != nil
+    }
+
+    /// 检查字符串是否仅包含数字
+    ///   "123".isDigits -> true
+    ///   "1.3".isDigits -> false
+    ///   "abc".isDigits -> false
+    var isDigits: Bool {
+        return CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: self))
     }
 }
 
@@ -141,5 +169,44 @@ public extension String {
     fileprivate func getCharacter(_ index: Int) -> Character {
         let index = self.index(self.startIndex, offsetBy: index)
         return self[index]
+    }
+}
+
+// MARK: - Path
+
+public extension String {
+    /// SwifterSwift: NSString lastPathComponent.
+    var lastPathComponent: String {
+        return (self as NSString).lastPathComponent
+    }
+
+    /// SwifterSwift: NSString pathExtension.
+    var pathExtension: String {
+        return (self as NSString).pathExtension
+    }
+
+    /// SwifterSwift: NSString deletingLastPathComponent.
+    var deletingLastPathComponent: String {
+        return (self as NSString).deletingLastPathComponent
+    }
+
+    /// SwifterSwift: NSString deletingPathExtension.
+    var deletingPathExtension: String {
+        return (self as NSString).deletingPathExtension
+    }
+
+    /// SwifterSwift: NSString pathComponents.
+    var pathComponents: [String] {
+        return (self as NSString).pathComponents
+    }
+
+    /// SwifterSwift: NSString appendingPathComponent(str: String).
+    ///
+    /// - Note: This method only works with file paths (not, for example, string representations of URLs.
+    ///   See NSString [appendingPathComponent(_:)](https://developer.apple.com/documentation/foundation/nsstring/1417069-appendingpathcomponent)
+    /// - Parameter str: the path component to append to the receiver.
+    /// - Returns: a new string made by appending aString to the receiver, preceded if necessary by a path separator.
+    func appendingPathComponent(_ str: String) -> String {
+        return (self as NSString).appendingPathComponent(str)
     }
 }

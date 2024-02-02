@@ -9,7 +9,7 @@
 import Foundation
 
 public extension UIColor {
-    /// 根据16进制数字生辰Color
+    /// 根据16进制数字生成Color
     /// - Parameters:
     ///   - rgbHex: 16进制数字(0xRRGGBB)
     ///   - alpha: 透明度
@@ -40,14 +40,16 @@ public extension UIColor {
         self.init(rgbHex: intHex, alpha: alpha)
     }
 
-    /// 提取RGBA颜色分量
-    var rgba: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var a: CGFloat = 0
-        self.getRed(&r, green: &g, blue: &b, alpha: &a)
-        return (r, g, b, a)
+    /// 支持系统夜间模式的color
+    /// - Parameters:
+    ///   - light: light description
+    ///   - dark: dark description
+    convenience init(light: UIColor, dark: UIColor) {
+        if #available(iOS 13.0, tvOS 13.0, *) {
+            self.init(dynamicProvider: { $0.userInterfaceStyle == .dark ? dark : light })
+        } else {
+            self.init(cgColor: light.cgColor)
+        }
     }
 
     /// 生成一个随机颜色
@@ -57,5 +59,15 @@ public extension UIColor {
         let g = CGFloat(arc4random() % 256) / 255
         let b = CGFloat(arc4random() % 256) / 255
         return UIColor(red: r, green: g, blue: b, alpha: 1)
+    }
+
+    /// 提取RGBA颜色分量
+    var rgba: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        self.getRed(&r, green: &g, blue: &b, alpha: &a)
+        return (r, g, b, a)
     }
 }

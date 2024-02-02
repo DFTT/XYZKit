@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import XYZKit
 
 class ImgeDownSamplingDemoVC: UIViewController {
     override func viewDidLoad() {
@@ -34,13 +35,16 @@ class ImgeDownSamplingDemoVC: UIViewController {
         imgview3.image = dimg3
     }
 
-    /*
-     // MARK: - Navigation
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
 
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-     }
-     */
+        if blurView == nil {
+            blurView = XYZBlurEffectView().frame(view.bounds)
+            view.addSubview(blurView!)
+        }
+        blurView?.config(style: .light, // arc4random() % 2 == 1 ? .dark : .light,
+                         level: arc4random() % 2 == 1 ? Float(0.1) : Float(0.9))
+    }
+
+    var blurView: XYZBlurEffectView?
 }

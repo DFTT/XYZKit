@@ -17,6 +17,10 @@
 		5B08EBA42A98ADAD00A328F3 /* KeyBoardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B08EBA32A98ADAD00A328F3 /* KeyBoardObserver.swift */; };
 		5B2B6DE829139A670088FB50 /* UINavigationController+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2B6DE729139A670088FB50 /* UINavigationController+XYZ.swift */; };
 		5B3F2D28290B763F00CF3DDD /* XYZGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F2D27290B763F00CF3DDD /* XYZGradientView.swift */; };
+		5B6674A92B6B903E00B48237 /* Calendar+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6674A82B6B903E00B48237 /* Calendar+XYZ.swift */; };
+		5B6674AB2B6B992100B48237 /* CGFloat+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6674AA2B6B992100B48237 /* CGFloat+XYZ.swift */; };
+		5B6674AD2B6C8AC800B48237 /* UIViewController+XZY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6674AC2B6C8AC800B48237 /* UIViewController+XZY.swift */; };
+		5B6674AF2B6C8D4700B48237 /* XYZBlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6674AE2B6C8D4700B48237 /* XYZBlurEffectView.swift */; };
 		5F55BA887DBB0D6760F0FCEE51F04A20 /* UIBUtton+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE347E758F8BB85ECE016927CA6376B /* UIBUtton+XYZ.swift */; };
 		671E6BC8B49C472FADCEBBCE1BBC4B88 /* Pods-XYZKit_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 331071BA026B83E4E07A6757B9918275 /* Pods-XYZKit_Example-dummy.m */; };
 		67F00DB53EA991EBF3102DDE31F9909F /* XYZGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B1E2969E950CA03DFCE1EEE86DAD15 /* XYZGuideView.swift */; };
@@ -80,6 +84,10 @@
 		5B08EBA32A98ADAD00A328F3 /* KeyBoardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyBoardObserver.swift; path = XYZKit/Classes/Core/KeyBoardObserver.swift; sourceTree = "<group>"; };
 		5B2B6DE729139A670088FB50 /* UINavigationController+XYZ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+XYZ.swift"; sourceTree = "<group>"; };
 		5B3F2D27290B763F00CF3DDD /* XYZGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZGradientView.swift; sourceTree = "<group>"; };
+		5B6674A82B6B903E00B48237 /* Calendar+XYZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+XYZ.swift"; sourceTree = "<group>"; };
+		5B6674AA2B6B992100B48237 /* CGFloat+XYZ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+XYZ.swift"; sourceTree = "<group>"; };
+		5B6674AC2B6C8AC800B48237 /* UIViewController+XZY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+XZY.swift"; sourceTree = "<group>"; };
+		5B6674AE2B6C8D4700B48237 /* XYZBlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZBlurEffectView.swift; sourceTree = "<group>"; };
 		5DA2493D2D3FFD757C2AE7BDA631E3EA /* Pods-XYZKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-XYZKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		624D7983D06078D24A4C949EEA930BB4 /* Pods-XYZKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-XYZKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		6C3AC8EE19D70AB9388197052D578F54 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -263,6 +271,7 @@
 				F4C239977644139503605DE475744857 /* UITapGestureRecognizer+XYZ.swift */,
 				C29DDC838303374443797F85C74F753C /* UIView+XYZ.swift */,
 				5B3F2D27290B763F00CF3DDD /* XYZGradientView.swift */,
+				5B6674AC2B6C8AC800B48237 /* UIViewController+XZY.swift */,
 			);
 			name = XYZUIKit;
 			path = XYZKit/Classes/Core/XYZUIKit;
@@ -283,6 +292,7 @@
 				C4DDF2C2FD8441C2E37AE9EBA8DE829A /* XYZAssociatedKeys.swift */,
 				F946E02327C8F4DF7E94D0B4F143147B /* XYZMsgBuffer.swift */,
 				5B08EBA32A98ADAD00A328F3 /* KeyBoardObserver.swift */,
+				5B6674AE2B6C8D4700B48237 /* XYZBlurEffectView.swift */,
 				C9057F1E9E48E6860F03453CA177B68E /* XYZFoundation */,
 				9B21A52E6394728755B76D33A08D0BD4 /* XYZUIKit */,
 			);
@@ -309,9 +319,11 @@
 		C9057F1E9E48E6860F03453CA177B68E /* XYZFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				5B6674A82B6B903E00B48237 /* Calendar+XYZ.swift */,
 				D839B75A3A76F3FD91D3BD7495DF1FCD /* Array+XYZ.swift */,
 				B9D521F1BD49F6B93728A5252703886A /* Dictionary+XYZ.swift */,
 				32E320799ECE0A73B5EB4EC05F31540D /* Int+XYZ.swift */,
+				5B6674AA2B6B992100B48237 /* CGFloat+XYZ.swift */,
 				937E96398912F33D13C76168BADB1C08 /* String+XYZ.swift */,
 				917FB6E85DEC1029A7A731C721806E48 /* URL+XYZ.swift */,
 			);
@@ -532,6 +544,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5F49D134C886554E729CC86084EE87B /* Array+XYZ.swift in Sources */,
+				5B6674A92B6B903E00B48237 /* Calendar+XYZ.swift in Sources */,
 				D6E4C430A52A150BD628E6D3A4E6E1B7 /* CAGradientLayer+XYZ.swift in Sources */,
 				5B08EBA42A98ADAD00A328F3 /* KeyBoardObserver.swift in Sources */,
 				81FE4512C65B06FBD04FDAA29640C5E2 /* Dictionary+XYZ.swift in Sources */,
@@ -540,6 +553,8 @@
 				5F55BA887DBB0D6760F0FCEE51F04A20 /* UIBUtton+XYZ.swift in Sources */,
 				5B3F2D28290B763F00CF3DDD /* XYZGradientView.swift in Sources */,
 				BFED22A5815AF0661784A8F1002A4A18 /* UIColor+XYZ.swift in Sources */,
+				5B6674AD2B6C8AC800B48237 /* UIViewController+XZY.swift in Sources */,
+				5B6674AB2B6B992100B48237 /* CGFloat+XYZ.swift in Sources */,
 				0CB854ADC4EEDB4E7ECCCD4743713141 /* UIFont+XYZ.swift in Sources */,
 				9F9CBD30BBCF2390B3342A316698459B /* UIImage+XYZ.swift in Sources */,
 				A0429BF2D88AD3933D2E0930EAF27219 /* UIImageView+XYZ.swift in Sources */,
@@ -556,6 +571,7 @@
 				FBF9592DCE9E231CAEDB2A10041311FF /* XYZKit-dummy.m in Sources */,
 				F82F8AE0417973C63B94C73ABE6AC61F /* XYZLinkView.swift in Sources */,
 				3E0E1B1C61328E57DA64B81E992F5034 /* XYZMsgBuffer.swift in Sources */,
+				5B6674AF2B6C8D4700B48237 /* XYZBlurEffectView.swift in Sources */,
 				30FE5A1886305BA6DF8739A1150EAD5A /* XYZSMSCodeInputView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

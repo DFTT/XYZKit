@@ -8,6 +8,11 @@
 import Foundation
 
 public extension Dictionary {
+    /// 是否包含key
+    func contains(key: Key) -> Bool {
+        return index(forKey: key) != nil
+    }
+
     /// 转换为JSONString
     /// - Returns: json string
     var toJSONString: String? {

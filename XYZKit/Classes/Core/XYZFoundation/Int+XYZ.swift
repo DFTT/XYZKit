@@ -35,6 +35,13 @@ public extension Int {
         return UIFont.italicSystemFont(ofSize: CGFloat(self))
     }
 
+    var fontBoldItalic: UIFont {
+        if let fd = UIFontDescriptor().withSymbolicTraits([.traitBold, .traitItalic]) {
+            return UIFont(descriptor: fd, size: CGFloat(self))
+        }
+        return fontItalic
+    }
+
     func font(withName name: String) -> UIFont? {
         return UIFont(name: name, size: CGFloat(self))
     }
