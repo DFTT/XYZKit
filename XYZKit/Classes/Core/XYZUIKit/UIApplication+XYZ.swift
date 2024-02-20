@@ -16,7 +16,9 @@ public extension UIApplication {
         var irCount = 0
         while irCount < 10 {
             irCount += 1
-            if let vc = topVc?.presentedViewController {
+            if let vc = topVc?.presentedViewController,
+               (vc as? UIAlertController) == nil
+            {
                 topVc = vc
             } else if let nav = topVc as? UINavigationController {
                 topVc = nav.topViewController
