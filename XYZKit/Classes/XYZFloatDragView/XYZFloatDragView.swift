@@ -31,6 +31,12 @@ open class XYZFloatDragView: UIView {
         }
     }
 
+    /// 拖动松手后 自动吸边的动画中block 可以同步进行一些动画
+    public var dockingAnimationBlcck: ((CGPoint) -> Void)?
+
+    /// 自动吸边的动画完成后的回调
+    public var dockEndBlcck: (() -> Void)?
+
     override public init(frame: CGRect) {
         dock = .horizontal
         super.init(frame: frame)
@@ -55,7 +61,7 @@ private extension UIView {
     /// 是否可以拖动
     var enableDrag: Bool {
         set {
-            objc_setAssociatedObject(self, &float_AssociatedKeys.enabledrag, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &_AssociatedKeys.enabledrag, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
             if newValue {
                 // 需要拖动 强制开启
@@ -71,19 +77,25 @@ private extension UIView {
             panGes!.isEnabled = newValue
         }
         get {
-            return (objc_getAssociatedObject(self, &float_AssociatedKeys.enabledrag) as? Bool) ?? false
+            return (objc_getAssociatedObject(self, &_AssociatedKeys.enabledrag) as? Bool) ?? false
         }
     }
 
     /// 松手后是否自动吸边(左右)
     var autoDock: XYZFloatDragView.DockDirection {
         set {
-            objc_setAssociatedObject(self, &float_AssociatedKeys.autodock, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &_AssociatedKeys.autodock, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get {
-            return (objc_getAssociatedObject(self, &float_AssociatedKeys.autodock) as? XYZFloatDragView.DockDirection) ?? .horizontal
+            return (objc_getAssociatedObject(self, &_AssociatedKeys.autodock) as? XYZFloatDragView.DockDirection) ?? .horizontal
         }
     }
+
+//    /// 拖动松手后 自动吸边的动画中block 可以同步进行一些动画
+//    var dockingAnimationBlcck: ((CGPoint) -> Void)?
+//
+//    /// 自动吸边的动画完成后的回调
+//    var dockEndBlcck: (() -> Void)?
 
     /// 立即停靠
     func setAutoDockIfNeed() {
@@ -116,13 +128,22 @@ private extension UIView {
             newCenter.x = centerVisiableRect.maxX
         }
 
+        if newCenter == view.center {
+            return
+        }
+
+        let vv = view as? XYZFloatDragView
+
         // 更新
         UIView.animate(withDuration: 0.25) {
             view.center = newCenter
+            vv?.dockingAnimationBlcck?(newCenter)
+        } completion: { _ in
+            vv?.dockEndBlcck?()
         }
     }
 
-    private enum float_AssociatedKeys {
+    private enum _AssociatedKeys {
         static var pangesture = "_pangesture"
         static var enabledrag = "_enableDrag"
         static var autodock = "_autodock"
@@ -130,10 +151,10 @@ private extension UIView {
 
     private var float_panGesture: UIPanGestureRecognizer? {
         set {
-            objc_setAssociatedObject(self, &float_AssociatedKeys.pangesture, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &_AssociatedKeys.pangesture, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get {
-            return objc_getAssociatedObject(self, &float_AssociatedKeys.pangesture) as? UIPanGestureRecognizer
+            return objc_getAssociatedObject(self, &_AssociatedKeys.pangesture) as? UIPanGestureRecognizer
         }
     }
 
