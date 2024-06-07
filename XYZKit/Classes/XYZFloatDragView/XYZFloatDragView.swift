@@ -129,6 +129,10 @@ private extension UIView {
         }
 
         if newCenter == view.center {
+            if let vv = view as? XYZFloatDragView {
+                vv.dockingAnimationBlcck?(newCenter)
+                vv.dockEndBlcck?()
+            }
             return
         }
 
