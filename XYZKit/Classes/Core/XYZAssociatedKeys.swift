@@ -5,10 +5,10 @@
 //  Created by 大大东 on 2022/3/10.
 //
 
-internal enum XYZAssociatedKeys {
-    static var viewExpandKey = "uiview.expandkey"
+enum XYZAssociatedKeys {
+    static var viewExpandKey = Int(3_1_2_1)
 
-    static var btnActionBlockKey = "uibutton.actionBlockKey"
+    static var btnActionBlockKey = Int(3_1_2_2)
 
-    static var gestureActionBlockKey = "uigesture.actionBlockKey"
+    static var gestureActionBlockKey = Int(3_1_2_3)
 }

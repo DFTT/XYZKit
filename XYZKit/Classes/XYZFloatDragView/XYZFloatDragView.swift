@@ -17,14 +17,14 @@ open class XYZFloatDragView: UIView {
 
     public var dock: DockDirection {
         didSet {
-            self.autoDock = dock
+            self.autoDock = self.dock
             self.setAutoDockIfNeed()
         }
     }
 
     public var enable: Bool = true {
         didSet {
-            self.enableDrag = enable
+            self.enableDrag = self.enable
             if self.window != nil {
                 self.setAutoDockIfNeed()
             }
@@ -38,10 +38,10 @@ open class XYZFloatDragView: UIView {
     public var dockEndBlcck: (() -> Void)?
 
     override public init(frame: CGRect) {
-        dock = .horizontal
+        self.dock = .horizontal
         super.init(frame: frame)
         self.enableDrag = true
-        self.autoDock = dock
+        self.autoDock = self.dock
     }
 
     @available(*, unavailable)
@@ -70,7 +70,7 @@ private extension UIView {
 
             var panGes = self.float_panGesture
             if panGes == nil {
-                panGes = UIPanGestureRecognizer(target: self, action: #selector(float_pangesAction(_:)))
+                panGes = UIPanGestureRecognizer(target: self, action: #selector(self.float_pangesAction(_:)))
                 self.addGestureRecognizer(panGes!)
                 self.float_panGesture = panGes
             }
@@ -148,9 +148,9 @@ private extension UIView {
     }
 
     private enum _AssociatedKeys {
-        static var pangesture = "_pangesture"
-        static var enabledrag = "_enableDrag"
-        static var autodock = "_autodock"
+        static var pangesture = Int(2_3_1_1)
+        static var enabledrag = Int(2_3_1_2)
+        static var autodock = Int(2_3_1_3)
     }
 
     private var float_panGesture: UIPanGestureRecognizer? {
@@ -190,7 +190,7 @@ private extension UIView {
             // 更新
             view.center = newCenter
         case .failed, .ended, .cancelled:
-            setAutoDockIfNeed()
+            self.setAutoDockIfNeed()
         default:
             break
         }

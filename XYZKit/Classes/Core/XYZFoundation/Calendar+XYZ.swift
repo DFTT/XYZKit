@@ -26,7 +26,7 @@ public extension DateFormatter {
 
 public extension Date {
     func format(with format: String, calendar: Calendar = Calendar.gregorian) -> String {
-        let df = DateFormatter(format: format)
+        let df = DateFormatter(format: format, calendar: calendar)
         return df.string(from: self)
     }
 }

@@ -51,19 +51,19 @@ class GradientViewDemoVC: UIViewController {
         self.view.layer.addSublayer(layer3)
         
         // 渐变view
-        let view = XYZGradientView(frame: CGRect(x: 100, y: 220, width: 200, height: 100))
+        let view = XYZGradientView(frame: CGRect(x: 10, y: 220, width: 200, height: 100))
         view.colors = [UIColor.red, UIColor.green, UIColor.blue]
         self.view.addSubview(view)
         
         // 圆锥渐变view 仅双色
-        let view2 = XYZGradientView(frame: CGRect(x: 100, y: 340, width: 150, height: 150))
+        let view2 = XYZGradientView(frame: CGRect(x: 10, y: 340, width: 150, height: 150))
         view2.type = .conic
         view2.direction = .linear(start: CGPoint(x: 0.5, y: 0.5), end: CGPoint(x: 0.5, y: 1))
         view2.colors = [UIColor.red, UIColor.green, UIColor.blue]
         self.view.addSubview(view2)
         
         // 透明渐变view
-        let bg = UILabel(frame: CGRect(x: 100, y: 510, width: 200, height: 80))
+        let bg = UILabel(frame: CGRect(x: 10, y: 510, width: 200, height: 80))
         bg.text = "我是一个文字背景, 我的背景色是白色, 我上面有一个 透明到白色的渐变遮罩,"
         bg.numberOfLines = 0
 //        bg.backgroundColor = .red
@@ -74,5 +74,17 @@ class GradientViewDemoVC: UIViewController {
         view3.locations = [0, 0.9]
         view3.colors = [UIColor.white.withAlphaComponent(0), UIColor.white]
         bg.addSubview(view3)
+        
+        let view5 = UIImageView(frame: CGRect(x: 220, y: 510, width: 180, height: 100))
+        self.view.addSubview(view5)
+        var img: UIImage? = UIImage.image(with: .red, size: CGSizeMake(90, 50))
+        img = img?.imageByRoundCornerRadius(radius: 60, corners: [.bottomLeft, .bottomRight, .topRight], borderWidth: 2, borderColor: .blue)
+        view5.image = img
+        
+        let view6 = UIImageView(frame: CGRect(x: 200, y: 620, width: 180, height: 100))
+        self.view.addSubview(view6)
+        var img2: UIImage? = UIImage.image(with: .red, size: CGSizeMake(90, 50))
+        img2 = img2?.imageByRoundCornerRadius(radius: 25, corners: [.topLeft, .bottomRight, .topRight])
+        view6.image = img2
     }
 }

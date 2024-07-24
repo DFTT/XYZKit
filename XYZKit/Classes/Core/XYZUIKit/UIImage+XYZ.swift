@@ -51,7 +51,7 @@ public extension UIImage {
     /// - Returns: 新image
     func downSamplingToViewSize(_ viewSize: CGSize) -> UIImage? {
         let scle = UIScreen.main.scale
-        return downSamplingToPixcelSize(CGSizeMake(viewSize.width*scle, viewSize.height*scle))
+        return self.downSamplingToPixcelSize(CGSizeMake(viewSize.width*scle, viewSize.height*scle))
     }
 
     /// 图片下采样 降低内存占用
@@ -65,7 +65,7 @@ public extension UIImage {
                                                           pixcelSize.height / self.scale))
         }
 
-        guard let data = self.pngData(), let source = CGImageSourceCreateWithData(data as CFData, nil) else { return nil }
+        guard let data = pngData(), let source = CGImageSourceCreateWithData(data as CFData, nil) else { return nil }
         let attr = [kCGImageSourceCreateThumbnailWithTransform: true,
                     kCGImageSourceCreateThumbnailFromImageAlways: true,
                     kCGImageSourceThumbnailMaxPixelSize: max(pixcelSize.width, pixcelSize.height)] as [CFString: Any] as CFDictionary
@@ -181,5 +181,52 @@ public extension UIImage {
         }
 
         return finalData ?? lowstQualityData
+    }
+}
+
+// MARK: Clip
+
+public extension UIImage {
+    func roundCornerRadius(radius: CGFloat, corners: UIRectCorner, borderWidth: CGFloat = 0, borderColor: UIColor? = nil) -> UIImage {
+        var corners = corners
+        if corners != .allCorners {
+            var tmp: UIRectCorner = []
+            if corners.contains(.topLeft) { tmp.insert(.bottomLeft) }
+            if corners.contains(.topRight) { tmp.insert(.bottomRight) }
+            if corners.contains(.bottomLeft) { tmp.insert(.topLeft) }
+            if corners.contains(.bottomRight) { tmp.insert(.topRight) }
+            corners = tmp
+        }
+
+        let renderer = UIGraphicsImageRenderer(size: self.size)
+        return renderer.image { context in
+            let ctx = context.cgContext
+            let rect = CGRect(origin: .zero, size: self.size)
+            ctx.scaleBy(x: 1, y: -1)
+            ctx.translateBy(x: 0, y: -rect.size.height)
+
+            let minSize = min(self.size.width, self.size.height)
+            if borderWidth < minSize / 2 {
+                let path = UIBezierPath(roundedRect: rect.insetBy(dx: borderWidth, dy: borderWidth), byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: borderWidth))
+                path.close()
+
+                ctx.saveGState()
+                path.addClip()
+                ctx.draw(self.cgImage!, in: rect)
+                ctx.restoreGState()
+            }
+
+            if let borderColor = borderColor, borderWidth < minSize / 2, borderWidth > 0 {
+                let strokeInset = (floor(borderWidth*self.scale) + 0.5) / self.scale
+                let strokeRect = rect.insetBy(dx: strokeInset, dy: strokeInset)
+                let strokeRadius = radius > self.scale / 2 ? radius - self.scale / 2 : 0
+                let path = UIBezierPath(roundedRect: strokeRect, byRoundingCorners: corners, cornerRadii: CGSize(width: strokeRadius, height: borderWidth))
+                path.close()
+
+                path.lineWidth = borderWidth
+                borderColor.setStroke()
+                path.stroke()
+            }
+        }
     }
 }

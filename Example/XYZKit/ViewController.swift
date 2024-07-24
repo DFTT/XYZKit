@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "demo list"
+        title = "demo list"
 
         dataArr.append(VCCellItem(name: "空占位视图", vcClass: EmptyBoardDemoVC.self))
         dataArr.append(VCCellItem(name: "验证码输入", vcClass: SMSCodeDemoVC.self))
@@ -27,15 +27,15 @@ class ViewController: UIViewController {
         dataArr.append(VCCellItem(name: "自定义角标(小红点)", vcClass: BadgeDemoVC.self))
         dataArr.append(VCCellItem(name: "String部分区域添加可点击链接🔗", vcClass: LinkDemoVC.self))
         dataArr.append(VCCellItem(name: "UIView点击区域扩大 & btn布局", vcClass: ExpandActionDemoVC.self))
-        dataArr.append(VCCellItem(name: "渐变图层(待补充???)", vcClass: GradientViewDemoVC.self))
+        dataArr.append(VCCellItem(name: "渐变图层", vcClass: GradientViewDemoVC.self))
         dataArr.append(VCCellItem(name: "新功能引导(镂空)", vcClass: GuideDemoVC.self))
         dataArr.append(VCCellItem(name: "降频buffer", vcClass: MsgBufferDemoVC.self))
         dataArr.append(VCCellItem(name: "UIImage下采样", vcClass: ImgeDownSamplingDemoVC.self))
 
-        let tabView = UITableView(frame: self.view.bounds, style: .plain)
+        let tabView = UITableView(frame: view.bounds, style: .plain)
         tabView.delegate = self
         tabView.dataSource = self
-        self.view.addSubview(tabView)
+        view.addSubview(tabView)
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,6 +67,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = dataArr[indexPath.row].vcClass.init()
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
