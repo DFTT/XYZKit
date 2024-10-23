@@ -31,6 +31,8 @@ open class XYZFloatDragView: UIView {
         }
     }
 
+    public var dockEdges = UIEdgeInsets.zero
+
     /// 拖动松手后 自动吸边的动画中block 可以同步进行一些动画
     public var dockingAnimationBlcck: ((CGPoint) -> Void)?
 
@@ -104,13 +106,19 @@ private extension UIView {
             return
         }
 
-        let viaiableRect: CGRect
+        var marginInsets = UIEdgeInsets.zero
+        if let vv = view as? XYZFloatDragView {
+            marginInsets = vv.dockEdges
+        }
         if #available(iOS 11, *) {
-            viaiableRect = superview.bounds.inset(by: superview.safeAreaInsets)
-        } else {
-            viaiableRect = superview.bounds
+            let safeArea = superview.safeAreaInsets
+            marginInsets = UIEdgeInsets(top: safeArea.top + marginInsets.top,
+                                       left: safeArea.left + marginInsets.left,
+                                       bottom: safeArea.bottom + marginInsets.bottom,
+                                       right: safeArea.right + marginInsets.right)
         }
 
+        let viaiableRect: CGRect = superview.bounds.inset(by: marginInsets)
         let viewSize = view.bounds.size
         // center有效区域
         let centerVisiableRect = viaiableRect.inset(by: UIEdgeInsets(top: viewSize.height / 2, left: viewSize.width / 2, bottom: viewSize.height / 2, right: viewSize.width / 2))
@@ -171,13 +179,19 @@ private extension UIView {
         switch panges.state {
         case .began, .changed:
 
-            let viaiableRect: CGRect
+            var marginInsets = UIEdgeInsets.zero
+            if let vv = view as? XYZFloatDragView {
+                marginInsets = vv.dockEdges
+            }
             if #available(iOS 11, *) {
-                viaiableRect = superview.bounds.inset(by: superview.safeAreaInsets)
-            } else {
-                viaiableRect = superview.bounds
+                let safeArea = superview.safeAreaInsets
+                marginInsets = UIEdgeInsets(top: safeArea.top + marginInsets.top,
+                                            left: safeArea.left + marginInsets.left,
+                                            bottom: safeArea.bottom + marginInsets.bottom,
+                                            right: safeArea.right + marginInsets.right)
             }
 
+            let viaiableRect: CGRect = superview.bounds.inset(by: marginInsets)
             let viewSize = view.bounds.size
             // center有效区域
             let centerVisiableRect = viaiableRect.inset(by: UIEdgeInsets(top: viewSize.height / 2, left: viewSize.width / 2, bottom: viewSize.height / 2, right: viewSize.width / 2))

@@ -22,6 +22,7 @@ class FloatDragDemoVC: UIViewController {
 
         
         floatView = XYZFloatDragView(frame: CGRect(x: 300, y: 350, width: 100, height: 100)).bgColor(UIColor.red)
+        floatView.dockEdges = UIEdgeInsets(top: 0, left: 15, bottom: 50, right: 30)
         self.view.addSubview(floatView)
         floatView.addTapGesture {
             print("点击事件")
