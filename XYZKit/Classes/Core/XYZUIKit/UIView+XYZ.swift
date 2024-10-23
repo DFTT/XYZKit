@@ -148,6 +148,7 @@ public extension UIView {
         }
     }
 
+    // 抖动动画
     func shakeAnimation(_ duration: TimeInterval = 0.6, isRepeat: Bool = false) {
         self.layer.removeAllAnimations()
 
@@ -168,6 +169,7 @@ public extension UIView {
         }
     }
 
+    // 弹跳动画
     func bounceAnimation(_ duration: TimeInterval = 0.8, isRepeat: Bool = false) {
         self.layer.removeAllAnimations()
 
@@ -191,6 +193,7 @@ public extension UIView {
         }
     }
 
+    // 摇摆动画
     func swingAnimtion(_ duration: TimeInterval = 0.8, isRepeat: Bool = false) {
         self.layer.removeAllAnimations()
 
@@ -211,6 +214,23 @@ public extension UIView {
             self.layer.add(swingAni, forKey: "__swing__")
         }
     }
+
+    // 呼吸动画
+    func breathingAnimtion(_ duration: TimeInterval = 0.8, fromValue: Float = 1, toValue: Float = 1.2, isRepeat: Bool = false) {
+        self.layer.removeAllAnimations()
+
+        let breathingAnimation = CABasicAnimation(keyPath: "transform.scale")
+        breathingAnimation.fromValue = fromValue
+        breathingAnimation.toValue = toValue
+        breathingAnimation.duration = duration
+        breathingAnimation.autoreverses = true
+        breathingAnimation.repeatCount = isRepeat ? .infinity : 1
+        breathingAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+
+        DispatchQueue.main.async {
+            self.layer.add(breathingAnimation, forKey: "__breathing__")
+        }
+    }
 }
 
 // MARK: 扩大点击区域
@@ -229,15 +249,15 @@ public extension UIView {
     }
 
     @objc private func xyz_point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        if expandInsets == .zero {
-            return xyz_point(inside: point, with: event)
+        if self.expandInsets == .zero {
+            return self.xyz_point(inside: point, with: event)
         } else {
-            var res = xyz_point(inside: point, with: event)
+            var res = self.xyz_point(inside: point, with: event)
             if !res {
-                let newRect = CGRect(x: bounds.origin.x - expandInsets.left,
-                                     y: bounds.origin.y - expandInsets.top,
-                                     width: bounds.size.width + expandInsets.left + expandInsets.right,
-                                     height: bounds.size.height + expandInsets.top + expandInsets.bottom)
+                let newRect = CGRect(x: bounds.origin.x - self.expandInsets.left,
+                                     y: bounds.origin.y - self.expandInsets.top,
+                                     width: bounds.size.width + self.expandInsets.left + self.expandInsets.right,
+                                     height: bounds.size.height + self.expandInsets.top + self.expandInsets.bottom)
                 res = newRect.contains(point)
             }
             return res

@@ -7,8 +7,8 @@
 
 import Foundation
 
-extension Optional where Wrapped: Any {
-    var toString: String? {
+public extension Optional where Wrapped: Any {
+    var asString: String? {
         switch self {
         case .none:
             return nil
@@ -16,11 +16,14 @@ extension Optional where Wrapped: Any {
             if let v = wrapped as? String {
                 return v
             }
+            if let v = wrapped as? Data {
+                return String(data: v, encoding: .utf8)
+            }
             return "\(wrapped)"
         }
     }
 
-    var toInt: Int? {
+    var asInt: Int? {
         switch self {
         case .none:
             return nil
@@ -41,10 +44,21 @@ extension Optional where Wrapped: Any {
         }
     }
 
-    var toBool: Bool {
-        if let ss = toString {
-            return ss.bool
+    var asBool: Bool {
+        switch self {
+        case .none:
+            return false
+        case .some(let wrapped):
+            if let boolValue = wrapped as? Bool {
+                return boolValue
+            }
+            if let numberValue = wrapped as? NSNumber {
+                return numberValue.boolValue
+            }
+            if let ss = asString {
+                return ss.bool
+            }
+            return false
         }
-        return false
     }
 }

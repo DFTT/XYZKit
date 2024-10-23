@@ -78,13 +78,13 @@ class GradientViewDemoVC: UIViewController {
         let view5 = UIImageView(frame: CGRect(x: 220, y: 510, width: 180, height: 100))
         self.view.addSubview(view5)
         var img: UIImage? = UIImage.image(with: .red, size: CGSizeMake(90, 50))
-        img = img?.imageByRoundCornerRadius(radius: 60, corners: [.bottomLeft, .bottomRight, .topRight], borderWidth: 2, borderColor: .blue)
+        img = img?.roundCornerRadius(radius: 60, corners: [.topRight, .bottomLeft, .bottomRight], borderWidth: 2, borderColor: .blue)
         view5.image = img
         
         let view6 = UIImageView(frame: CGRect(x: 200, y: 620, width: 180, height: 100))
         self.view.addSubview(view6)
         var img2: UIImage? = UIImage.image(with: .red, size: CGSizeMake(90, 50))
-        img2 = img2?.imageByRoundCornerRadius(radius: 25, corners: [.topLeft, .bottomRight, .topRight])
+        img2 = img2?.roundCornerRadius(radius: 25, corners: [.topLeft, .bottomRight, .topRight])
         view6.image = img2
     }
 }
