@@ -61,6 +61,74 @@ public extension UIView {
         return CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
     }
 
+    // width
+    var width: CGFloat {
+        get {
+            return self.frame.size.width
+        }
+        set {
+            var frame = self.frame
+            frame.size.width = newValue
+            self.frame = frame
+        }
+    }
+
+    // height
+    var height: CGFloat {
+        get {
+            return self.frame.size.height
+        }
+        set {
+            var frame = self.frame
+            frame.size.height = newValue
+            self.frame = frame
+        }
+    }
+
+    // centerX
+    var centerX: CGFloat {
+        get {
+            return self.center.x
+        }
+        set {
+            self.center = CGPoint(x: newValue, y: self.center.y)
+        }
+    }
+
+    // centerY
+    var centerY: CGFloat {
+        get {
+            return self.center.y
+        }
+        set {
+            self.center = CGPoint(x: self.center.x, y: newValue)
+        }
+    }
+
+    // origin
+    var origin: CGPoint {
+        get {
+            return self.frame.origin
+        }
+        set {
+            var frame = self.frame
+            frame.origin = newValue
+            self.frame = frame
+        }
+    }
+
+    // size
+    var size: CGSize {
+        get {
+            return self.frame.size
+        }
+        set {
+            var frame = self.frame
+            frame.size = newValue
+            self.frame = frame
+        }
+    }
+
     /// 图层中所属的ViewController
     var viewController: UIViewController? {
         var nextResp = self.next
