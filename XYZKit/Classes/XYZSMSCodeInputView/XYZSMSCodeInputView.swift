@@ -156,10 +156,10 @@ public class XYZSMSCodeInputView: UIView {
         tmpRemoveSelectStyle()
 
         guard index < codeLabels.count else {
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                 // 输入满了
                 self.inputCompletion?(self.code)
-            }
+            })
             return
         }
         selectIndex = index
