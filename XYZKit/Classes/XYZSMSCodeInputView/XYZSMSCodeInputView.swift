@@ -16,6 +16,11 @@ public class XYZSMSCodeInputView: UIView {
             case roundRect
         }
 
+        public enum BorderColorStyle: Int {
+            case select // 当前选中的高亮
+            case fill // 填充后高亮
+        }
+
         public var count: Int = 4
         public var font: UIFont = 17.fontMedium
         public var textColor: UIColor = .black
@@ -24,6 +29,8 @@ public class XYZSMSCodeInputView: UIView {
         public var codeBoder: CodeBoderStyle = .bottomLine
         public var curserColor: UIColor = .systemBlue
         public var codeSelectedBoderColor: UIColor = .red
+        public var cornerRadius: CGFloat = 12
+        public var boderColorStyle: BorderColorStyle = .select
 
         public static func `default`() -> Self {
             return self.init()
@@ -45,26 +52,26 @@ public class XYZSMSCodeInputView: UIView {
         let tf = textField
         addSubview(textField)
         tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        tf.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        tf.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        tf.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        tf.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        tf.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        tf.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        tf.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
         let stackV = stackView
         stackV.spacing = CGFloat(config.spacing)
         addSubview(stackV)
         stackV.translatesAutoresizingMaskIntoConstraints = false
-        stackV.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        stackV.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        stackV.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        stackV.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        stackV.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        stackV.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        stackV.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        stackV.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
         codeLabels.forEach { label in
             stackV.addArrangedSubview(label)
         }
 
         let cs = XYZCurser(color: config.curserColor)
-        self.addSubview(cs)
+        addSubview(cs)
         cs.beginAnimation()
         curser = cs
     }
@@ -91,7 +98,9 @@ public class XYZSMSCodeInputView: UIView {
         for i in 1 ... config.count {
             let label = XYZCodeLabel(boderStyle: config.codeBoder,
                                      boderNomalColor: config.codeBoderColor,
-                                     boderSelectedColor: config.codeSelectedBoderColor)
+                                     boderSelectedColor: config.codeSelectedBoderColor,
+                                     cornerRadius: config.cornerRadius,
+                                     borderColorStyle: config.boderColorStyle)
             label.font(config.font).textColor(config.textColor)
             array.append(label)
 
@@ -153,7 +162,7 @@ public class XYZSMSCodeInputView: UIView {
             }
             return
         }
-        self.selectIndex = index
+        selectIndex = index
         codeLabels[index].selected = true
 
         let frame = codeLabels[index].frame
@@ -176,7 +185,7 @@ extension XYZSMSCodeInputView: UITextFieldDelegate {
     }
 
     public func textFieldDidBeginEditing(_ textField: UITextField) {
-        updateSelectIndex(self.selectIndex)
+        updateSelectIndex(selectIndex)
     }
 
     public func textFieldDidEndEditing(_ textField: UITextField) {
@@ -199,16 +208,22 @@ private class XYZCodeLabel: UILabel {
     private let boderStyle: XYZSMSCodeInputView.Configs.CodeBoderStyle?
     private let boderNomalColor: UIColor?
     private let boderSelectedColor: UIColor?
+    private let cornerRadius: CGFloat?
+    private let borderColorStyle: XYZSMSCodeInputView.Configs.BorderColorStyle?
 
     init(boderStyle: XYZSMSCodeInputView.Configs.CodeBoderStyle?,
          boderNomalColor: UIColor?,
-         boderSelectedColor: UIColor?)
+         boderSelectedColor: UIColor?,
+         cornerRadius: CGFloat?,
+         borderColorStyle: XYZSMSCodeInputView.Configs.BorderColorStyle)
     {
         self.boderStyle = boderStyle
         self.boderNomalColor = boderNomalColor
         self.boderSelectedColor = boderSelectedColor
+        self.cornerRadius = cornerRadius
+        self.borderColorStyle = borderColorStyle
         super.init(frame: CGRect.zero)
-        self.textAlignment = .center
+        textAlignment = .center
     }
 
     @available(*, unavailable)
@@ -227,7 +242,7 @@ private class XYZCodeLabel: UILabel {
         guard let style = boderStyle else {
             return
         }
-        let size = self.bounds.size
+        let size = bounds.size
         guard size != .zero else {
             return
         }
@@ -242,19 +257,25 @@ private class XYZCodeLabel: UILabel {
             layer.masksToBounds = false
             layer.cornerRadius = 0
             layer.borderColor = nil
-            layer.borderColor = selected ? boderSelectedColor?.cgColor : boderNomalColor?.cgColor
 
         case .rect:
             layer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
             layer.masksToBounds = false
             layer.cornerRadius = 0
-            layer.borderColor = selected ? boderSelectedColor?.cgColor : boderNomalColor?.cgColor
 
         case .roundRect:
             layer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
             layer.masksToBounds = true
-            layer.cornerRadius = size.height / 5
+            layer.cornerRadius = cornerRadius ?? 12
+        }
+
+        switch borderColorStyle {
+        case .select:
             layer.borderColor = selected ? boderSelectedColor?.cgColor : boderNomalColor?.cgColor
+        case .fill:
+            layer.borderColor = text?.isEmpty == false || selected ? boderSelectedColor?.cgColor : boderNomalColor?.cgColor
+        case .none:
+            break
         }
         self.layer.addSublayer(layer)
     }
@@ -282,7 +303,7 @@ private class XYZCurser: UIView {
         animate.toValue = animateColor.cgColor
         animate.duration = 1
         animate.repeatCount = Float(INT_MAX)
-        self.layer.add(animate, forKey: "_hahaha_")
+        layer.add(animate, forKey: "_hahaha_")
         lightAnimation = animate
     }
 
@@ -290,7 +311,7 @@ private class XYZCurser: UIView {
         guard lightAnimation != nil else {
             return
         }
-        self.layer.removeAnimation(forKey: "_hahaha_")
+        layer.removeAnimation(forKey: "_hahaha_")
         lightAnimation = nil
     }
 }
