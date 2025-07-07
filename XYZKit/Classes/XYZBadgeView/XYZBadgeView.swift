@@ -42,9 +42,9 @@ public class XYZBadgeView: UIView {
     }
 
     init(bg: BadgeContentView) {
-        contentView = bg
+        self.contentView = bg
         super.init(frame: .zero)
-        addSubview(contentView)
+        addSubview(self.contentView)
         clipsToBounds = true
     }
 
@@ -54,15 +54,15 @@ public class XYZBadgeView: UIView {
     }
 
     override public var intrinsicContentSize: CGSize {
-        let size = contentView.intrinsicContentSize
-        return CGSize(width: size.width + padding.left + padding.right,
-                      height: size.height + padding.top + padding.bottom)
+        let size = self.contentView.intrinsicContentSize
+        return CGSize(width: size.width + self.padding.left + self.padding.right,
+                      height: size.height + self.padding.top + self.padding.bottom)
     }
 
     override public func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = self.bounds.inset(by: padding)
-        contentView.layer.cornerRadius = contentView.bounds.height / 2
+        self.contentView.frame = self.bounds.inset(by: self.padding)
+        self.contentView.layer.cornerRadius = self.contentView.bounds.height / 2
     }
 
     // MARK: BGView
@@ -81,26 +81,26 @@ public class XYZBadgeView: UIView {
 
         public var font = 11.font {
             didSet {
-                textLabel.font = font
+                self.textLabel.font = self.font
                 self.superview?.invalidateIntrinsicContentSize()
             }
         }
 
         public var text = "" {
             didSet {
-                textLabel.text = text
+                self.textLabel.text = self.text
                 self.superview?.invalidateIntrinsicContentSize()
             }
         }
 
         public var textColor = UIColor.white {
             didSet {
-                textLabel.textColor = textColor
+                self.textLabel.textColor = self.textColor
             }
         }
 
         private lazy var textLabel: UILabel = {
-            let label = UILabel().font(font).textColor(textColor).textAlignment(.center)
+            let label = UILabel().font(self.font).textColor(self.textColor).textAlignment(.center)
             addSubview(label)
             return label
         }()
@@ -110,7 +110,7 @@ public class XYZBadgeView: UIView {
         init(img: UIImage, stretchAxis: BadgeBgImgStretchAxis) {
             super.init(frame: .zero)
 
-            allowStretchAxis = stretchAxis
+            self.allowStretchAxis = stretchAxis
             let imgSize = img.size
 
             switch stretchAxis {
@@ -129,12 +129,14 @@ public class XYZBadgeView: UIView {
                                                                             right: imgSize.width / 2),
                                                 resizingMode: .stretch)
             }
+            // 设置图片 不自动裁剪
             clipsToBounds = false
         }
 
         init(color: UIColor) {
             super.init(frame: .zero)
             bgColor(color)
+            // 颜色的 自动裁圆角
             clipsToBounds = true
         }
 
@@ -145,27 +147,83 @@ public class XYZBadgeView: UIView {
 
         override public var intrinsicContentSize: CGSize {
             if let img = self.image {
-                switch allowStretchAxis {
+                switch self.allowStretchAxis {
                 case .unable:
                     return img.size
                 case .horizontal:
-                    let size = textLabel.intrinsicContentSize
-                    return CGSize(width: max(size.width, size.height) + padding.left + padding.right,
+                    let size = self.textLabel.intrinsicContentSize
+                    return CGSize(width: max(size.width, size.height) + self.padding.left + self.padding.right,
                                   height: img.size.height)
                 case .horizontalAndVertical:
-                    let size = textLabel.intrinsicContentSize
-                    return CGSize(width: max(size.width, size.height) + padding.left + padding.right,
-                                  height: size.height + padding.top + padding.bottom)
+                    let size = self.textLabel.intrinsicContentSize
+                    return CGSize(width: max(size.width, size.height) + self.padding.left + self.padding.right,
+                                  height: size.height + self.padding.top + self.padding.bottom)
                 }
             }
-            let size = textLabel.intrinsicContentSize
-            return CGSize(width: max(size.width, size.height) + padding.left + padding.right,
-                          height: size.height + padding.top + padding.bottom)
+            let size = self.textLabel.intrinsicContentSize
+            return CGSize(width: max(size.width, size.height) + self.padding.left + self.padding.right,
+                          height: size.height + self.padding.top + self.padding.bottom)
         }
 
         override public func layoutSubviews() {
             super.layoutSubviews()
-            textLabel.frame = self.bounds.inset(by: padding)
+            self.textLabel.frame = self.bounds.inset(by: self.padding)
         }
     }
 }
+
+import Combine
+
+@available(iOS 13.0, *)
+public extension XYZBadgeView {
+    /// 将此 XYZBadgeView 实例与 XYZBadgeManager 中的一个路径进行绑定。
+    /// 绑定后，该角标将自动根据路径的值显示、隐藏或更新数字。
+    ///
+    /// - Parameters:
+    ///   - path: 要绑定的红点路径。
+    ///   - manager: 使用的 XYZBadgeManager 实例，默认为单例。
+    func bind(to path: XYZBadgePath, manager: XYZBadgeManager) {
+        // 创建或更新订阅
+        // 当调用此方法时，会自动取消上一个订阅
+        self.subjection = manager.publisher(for: path)
+            .receive(on: DispatchQueue.main) // 确保在主线程更新UI
+            .sink { [weak self] value in
+                self?.updateView(with: value)
+            }
+    }
+
+    /// 解除当前角标的路径绑定。
+    func unbind() {
+        self.subjection?.cancel()
+        self.subjection = nil
+    }
+
+    // MARK: - Private Helpers
+
+    /// 根据接收到的值更新视图
+    private func updateView(with value: Int) {
+        if value > 0 {
+            self.isHidden = false
+            self.contentView.text = "\(value)"
+        } else {
+            // 当值为0或更少时，隐藏角标并清空文本
+            self.isHidden = true
+            self.contentView.text = ""
+        }
+    }
+
+    /// 使用关联对象来存储订阅的Cancellable
+    private var subjection: AnyCancellable? {
+        get {
+            objc_getAssociatedObject(self, &_cancellableKey_) as? AnyCancellable
+        }
+        set {
+            // 在设置新值之前，确保存储的旧订阅被取消
+            (objc_getAssociatedObject(self, &_cancellableKey_) as? AnyCancellable)?.cancel()
+            objc_setAssociatedObject(self, &_cancellableKey_, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
+// 用于通过关联对象存储 Combine 的订阅
+private var _cancellableKey_: Void?

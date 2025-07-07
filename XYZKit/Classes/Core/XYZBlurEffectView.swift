@@ -7,6 +7,8 @@
 
 import Foundation
 
+// 可以调整模糊程度的视图
+
 @available(iOS 11.0, *)
 public class XYZBlurEffectView: UIView {
     override public func layoutSubviews() {
@@ -45,6 +47,7 @@ public class XYZBlurEffectView: UIView {
             level = 0
         }
         animator!.fractionComplete = CGFloat(level)
+        animator!.pausesOnCompletion = true
     }
 
     private var effectView: UIVisualEffectView?

@@ -43,14 +43,14 @@ public class XYZGradientView: UIView {
 
     public var type: CAGradientLayerType = .axial {
         didSet {
-            self.syncConfig()
+            syncConfig()
         }
     }
 
     /// 渐变方向
     public var direction: XYZGradientDirection = .horizontal {
         didSet {
-            self.syncConfig()
+            syncConfig()
         }
     }
 
@@ -58,14 +58,14 @@ public class XYZGradientView: UIView {
     /// 线性渐变 可多色
     public var colors: [UIColor] = [] {
         didSet {
-            self.syncConfig()
+            syncConfig()
         }
     }
 
     /// 渐变颜色分布位置 (例如: [0, 0.5, 1])
     public var locations: [Float]? {
         didSet {
-            self.syncConfig()
+            syncConfig()
         }
     }
 

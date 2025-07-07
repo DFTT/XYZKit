@@ -36,7 +36,7 @@ public class KeyBoardObserver: NSObject {
         if let kbToRect = notify.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
            let duration = notify.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
         {
-            lisenners.objectEnumerator().forEach { ins in
+            for ins in lisenners.objectEnumerator() {
                 (ins as! KeyBoardObserverProtocol).keyboardWillChange(toRect: kbToRect, toShow: true, duration: duration)
             }
         }
@@ -46,7 +46,7 @@ public class KeyBoardObserver: NSObject {
         if let kbToRect = notify.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
            let duration = notify.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
         {
-            lisenners.objectEnumerator().forEach { ins in
+            for ins in lisenners.objectEnumerator() {
                 (ins as! KeyBoardObserverProtocol).keyboardWillChange(toRect: kbToRect, toShow: false, duration: duration)
             }
         }

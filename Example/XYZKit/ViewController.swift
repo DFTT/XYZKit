@@ -24,7 +24,9 @@ class ViewController: UIViewController {
         dataArr.append(VCCellItem(name: "空占位视图", vcClass: EmptyBoardDemoVC.self))
         dataArr.append(VCCellItem(name: "验证码输入", vcClass: SMSCodeDemoVC.self))
         dataArr.append(VCCellItem(name: "可拖动悬浮窗", vcClass: FloatDragDemoVC.self))
-        dataArr.append(VCCellItem(name: "自定义角标(小红点)", vcClass: BadgeDemoVC.self))
+        if #available(iOS 13, *) {
+            dataArr.append(VCCellItem(name: "自定义角标(小红点)", vcClass: BadgeDemoVC.self))
+        }
         dataArr.append(VCCellItem(name: "String部分区域添加可点击链接🔗", vcClass: LinkDemoVC.self))
         dataArr.append(VCCellItem(name: "UIView点击区域扩大 & btn布局", vcClass: ExpandActionDemoVC.self))
         dataArr.append(VCCellItem(name: "渐变图层", vcClass: GradientViewDemoVC.self))

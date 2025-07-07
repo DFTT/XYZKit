@@ -14,13 +14,13 @@ public extension UITapGestureRecognizer {
     convenience init(actionBlock: @escaping () -> Void) {
         self.init()
 
-        let val = Xyz_TapGesAction(actionBlock)
+        let val = XYZTapGestureAction(actionBlock)
         objc_setAssociatedObject(self, &XYZAssociatedKeys.gestureActionBlockKey, val, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
-        addTarget(val, action: #selector(Xyz_TapGesAction.tapActionFunc))
+        addTarget(val, action: #selector(XYZTapGestureAction.tapActionFunc))
     }
 
-    private class Xyz_TapGesAction {
+    private class XYZTapGestureAction {
         var __action: () -> Void
         init(_ action: @escaping () -> Void) {
             __action = action

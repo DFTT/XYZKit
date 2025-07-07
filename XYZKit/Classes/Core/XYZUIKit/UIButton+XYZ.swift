@@ -1,5 +1,5 @@
 //
-//  UIBUtton+XYZ.swift
+//  UIButton+XYZ.swift
 //  SwiftLearnDemo
 //
 //  Created by 大大东 on 2021/9/13.
@@ -50,7 +50,7 @@ public extension UIButton {
             return
         }
         self.xyz_btnActionBlock = action
-        self.addTarget(self, action: #selector(xyz_btnActionFunc), for: .touchUpInside)
+        self.addTarget(self, action: #selector(self.xyz_btnActionFunc), for: .touchUpInside)
     }
 
     @objc private func xyz_btnActionFunc() {
@@ -77,7 +77,7 @@ public extension UIButton {
         case imgLeft
         case imgRight
     }
-    
+
     /// 按钮图片/标题位置调整
     /// - Parameters:
     ///   - imageAlignment: 图文排列方式

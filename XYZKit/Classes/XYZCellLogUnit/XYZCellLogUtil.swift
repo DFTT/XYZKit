@@ -66,7 +66,7 @@ extension CellLoger: LogCheckTimerAble {
             if !vaildItems.isEmpty {
                 self.items += Array(vaildItems)
             }
-            vaildItems.forEach { key in
+            for key in vaildItems {
                 self.waitingConfirmItems.removeValue(forKey: key)
             }
             self._lock.signal()
@@ -76,7 +76,7 @@ extension CellLoger: LogCheckTimerAble {
 
 //
 private protocol LogCheckTimerAble {
-    func fireRepeatAction() -> Void
+    func fireRepeatAction()
 }
 
 //

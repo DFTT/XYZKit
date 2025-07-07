@@ -9,6 +9,7 @@
 import UIKit
 import XYZKit
 
+@available(iOS 13, *)
 class BadgeDemoVC: UIViewController {
     var badge1: XYZBadgeView!
     var badge2: XYZBadgeView!
@@ -66,6 +67,13 @@ class BadgeDemoVC: UIViewController {
         let badge4 = XYZBadgeView(.red)
         ___addBdView(badge4, to: view4)
         
+        let view5 = UIView(frame: CGRect(x: 200, y: 400, width: 50, height: 50)).bgColor(.blue)
+        self.view.addSubview(view5)
+        let badge5 = XYZBadgeView(.red)
+        ___addBdView(badge5, to: view5)
+        
+        badge5.bind(to: .init(key: "xxxx"), manager: self.msger)
+        
         self.badge1 = badge1
         self.badge2 = badge2
         self.badge3 = badge3
@@ -78,6 +86,8 @@ class BadgeDemoVC: UIViewController {
         self.view.addSubview(tip2)
     }
     
+    private lazy var msger = XYZBadgeManager()
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
 
@@ -86,6 +96,8 @@ class BadgeDemoVC: UIViewController {
         
         self.badge4.swingAnimtion()
         
-        self.badge3.contentView.text = arc4random() % 2 == 1 ? "哈哈哈哈" : "嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿"
+        self.badge3.contentView.text = Bool.random() ? "哈哈哈哈" : "嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿"
+        
+        self.msger.update(path: .init(key: "xxxx"), value: Int.random(in: 0 ... 100000))
     }
 }

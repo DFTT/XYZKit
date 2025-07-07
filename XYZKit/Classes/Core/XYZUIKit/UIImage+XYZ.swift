@@ -187,45 +187,59 @@ public extension UIImage {
 // MARK: Clip
 
 public extension UIImage {
-    func roundCornerRadius(radius: CGFloat, corners: UIRectCorner, borderWidth: CGFloat = 0, borderColor: UIColor? = nil) -> UIImage {
-        var corners = corners
-        if corners != .allCorners {
-            var tmp: UIRectCorner = []
-            if corners.contains(.topLeft) { tmp.insert(.bottomLeft) }
-            if corners.contains(.topRight) { tmp.insert(.bottomRight) }
-            if corners.contains(.bottomLeft) { tmp.insert(.topLeft) }
-            if corners.contains(.bottomRight) { tmp.insert(.topRight) }
-            corners = tmp
+    func roundCornerRadius(radius: CGFloat,
+                           corners: UIRectCorner,
+                           borderWidth: CGFloat = 0,
+                           borderColor: UIColor? = nil) -> UIImage
+    {
+        // 1. 参数验证，防止无效参数
+        let adjustedRadius = radius >= 0 ? radius : 0
+        var adjustedBorderWidth = borderWidth > 0 ? borderWidth : 0
+
+        if adjustedRadius != radius {
+            print("Warning: Invalid radius value. Radius must be non-negative. Using 0 as default.")
         }
 
+        if adjustedBorderWidth != borderWidth {
+            print("Warning: Invalid border width value. Border width must be positive. Using 0 as default.")
+        }
+
+        // 额外检查 borderWidth 大于图像最小尺寸的一半时，打印警告
+        let minSize = min(self.size.width, self.size.height)
+        if adjustedBorderWidth >= minSize / 2 {
+            print("Warning: Border width is too large. It exceeds half the image size, which may lead to unexpected results.")
+            adjustedBorderWidth = minSize / 2 - 1 // 防止过大边框
+        }
+
+        // 2. 使用 UIGraphicsImageRenderer 进行绘制
         let renderer = UIGraphicsImageRenderer(size: self.size)
+
         return renderer.image { context in
             let ctx = context.cgContext
             let rect = CGRect(origin: .zero, size: self.size)
-            ctx.scaleBy(x: 1, y: -1)
-            ctx.translateBy(x: 0, y: -rect.size.height)
 
-            let minSize = min(self.size.width, self.size.height)
-            if borderWidth < minSize / 2 {
-                let path = UIBezierPath(roundedRect: rect.insetBy(dx: borderWidth, dy: borderWidth), byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: borderWidth))
-                path.close()
+            // 3. 绘制图像和圆角
+            ctx.saveGState()
+            let path = UIBezierPath(roundedRect: rect.insetBy(dx: adjustedBorderWidth, dy: adjustedBorderWidth),
+                                    byRoundingCorners: corners,
+                                    cornerRadii: CGSize(width: adjustedRadius, height: adjustedRadius))
+            path.addClip()
+            self.draw(in: rect)
+            ctx.restoreGState()
 
+            // 4. 绘制边框
+            if let borderColor = borderColor, adjustedBorderWidth > 0 {
                 ctx.saveGState()
-                path.addClip()
-                ctx.draw(self.cgImage!, in: rect)
-                ctx.restoreGState()
-            }
-
-            if let borderColor = borderColor, borderWidth < minSize / 2, borderWidth > 0 {
-                let strokeInset = (floor(borderWidth*self.scale) + 0.5) / self.scale
+                let strokeInset = (floor(adjustedBorderWidth*self.scale) + 0.5) / self.scale
                 let strokeRect = rect.insetBy(dx: strokeInset, dy: strokeInset)
-                let strokeRadius = radius > self.scale / 2 ? radius - self.scale / 2 : 0
-                let path = UIBezierPath(roundedRect: strokeRect, byRoundingCorners: corners, cornerRadii: CGSize(width: strokeRadius, height: borderWidth))
-                path.close()
-
-                path.lineWidth = borderWidth
+                let strokeRadius = adjustedRadius
+                let borderPath = UIBezierPath(roundedRect: strokeRect,
+                                              byRoundingCorners: corners,
+                                              cornerRadii: CGSize(width: strokeRadius, height: strokeRadius))
+                borderPath.close()
+                borderPath.lineWidth = adjustedBorderWidth
                 borderColor.setStroke()
-                path.stroke()
+                borderPath.stroke()
             }
         }
     }
