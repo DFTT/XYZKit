@@ -1,5 +1,5 @@
 //
-//  UIImage+XYZ.swift.swift
+//  UIImage+XYZ.swift
 //  XYZKit
 //
 //  Created by 大大东 on 2021/12/27.
@@ -12,34 +12,30 @@ import UIKit
 
 public extension UIImage {
     /// 生成一个纯色图片
-    static func image(with color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, 1)
-        let ctx = UIGraphicsGetCurrentContext()
-        ctx?.setFillColor(color.cgColor)
-        ctx?.fill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+    static func image(with color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { context in
+            color.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+        }
     }
 
     /// 生成一个渐变色图片
-    static func image(with size: CGSize = CGSize(width: 1, height: 1),
+    static func image(with size: CGSize = CGSize(width: 5, height: 5),
                       gradientDirection: XYZGradientView.XYZGradientDirection = .horizontal,
                       colors: [UIColor],
-                      locations: [NSNumber]? = nil) -> UIImage?
+                      locations: [NSNumber]? = nil) -> UIImage
     {
-        UIGraphicsBeginImageContextWithOptions(size, false, 1)
-        defer {
-            UIGraphicsEndImageContext()
-        }
-        guard let ctx = UIGraphicsGetCurrentContext() else { return nil }
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { _ in
+            let glayer = CAGradientLayer()
+            glayer.frame = CGRect(origin: .zero, size: size)
+            glayer.gradient(gradientDirection, colors: colors.map { $0.cgColor }, locations: locations)
 
-        let glayer = CAGradientLayer()
-        glayer.frame = CGRect(origin: .zero, size: size)
-        glayer.gradient(gradientDirection, colors: colors.map { $0.cgColor }, locations: locations)
-        glayer.render(in: ctx)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        return image
+            if let context = UIGraphicsGetCurrentContext() {
+                glayer.render(in: context)
+            }
+        }
     }
 }
 
@@ -51,24 +47,24 @@ public extension UIImage {
     /// - Returns: 新image
     func downSamplingToViewSize(_ viewSize: CGSize) -> UIImage? {
         let scle = UIScreen.main.scale
-        return self.downSamplingToPixcelSize(CGSizeMake(viewSize.width*scle, viewSize.height*scle))
+        return self.downSamplingToPixelSize(CGSizeMake(viewSize.width*scle, viewSize.height*scle))
     }
 
     /// 图片下采样 降低内存占用
-    /// - Parameter pixcelSize: 会在此像素size内保持原图的比例进行下采样(等同 AspectFit)
+    /// - Parameter pixelSize: 会在此像素size内保持原图的比例进行下采样(等同 AspectFit)
     /// - Returns: 新image
-    func downSamplingToPixcelSize(_ pixcelSize: CGSize) -> UIImage? {
+    func downSamplingToPixelSize(_ pixelSize: CGSize) -> UIImage? {
         if #available(iOS 15, *) {
             // 这个方法会保持原图的scale 乘这个size 计算出需要缩至的像素size范围
             // 为了保持下采样后正好匹配viewSize 这里需要处理下
-            return self.preparingThumbnail(of: CGSizeMake(pixcelSize.width / self.scale,
-                                                          pixcelSize.height / self.scale))
+            return self.preparingThumbnail(of: CGSizeMake(pixelSize.width / self.scale,
+                                                          pixelSize.height / self.scale))
         }
 
         guard let data = pngData(), let source = CGImageSourceCreateWithData(data as CFData, nil) else { return nil }
         let attr = [kCGImageSourceCreateThumbnailWithTransform: true,
                     kCGImageSourceCreateThumbnailFromImageAlways: true,
-                    kCGImageSourceThumbnailMaxPixelSize: max(pixcelSize.width, pixcelSize.height)] as [CFString: Any] as CFDictionary
+                    kCGImageSourceThumbnailMaxPixelSize: max(pixelSize.width, pixelSize.height)] as [CFString: Any] as CFDictionary
         guard let imgref = CGImageSourceCreateThumbnailAtIndex(source, 0, attr) else { return nil }
         return UIImage(cgImage: imgref)
     }

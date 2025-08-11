@@ -67,7 +67,12 @@ public extension UIColor {
         var g: CGFloat = 0
         var b: CGFloat = 0
         var a: CGFloat = 0
-        self.getRed(&r, green: &g, blue: &b, alpha: &a)
+        getRed(&r, green: &g, blue: &b, alpha: &a)
         return (r, g, b, a)
+    }
+
+    var toString: String {
+        let info = rgba
+        return String(format: "#02X02X02X", info.r, info.g, info.b)
     }
 }

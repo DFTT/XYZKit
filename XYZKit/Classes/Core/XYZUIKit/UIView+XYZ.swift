@@ -304,6 +304,15 @@ public extension UIView {
 // MARK: 扩大点击区域
 
 public extension UIView {
+    var expandInsetsAll: CGFloat {
+        set {
+            self.expandInsets = UIEdgeInsets(top: newValue, left: newValue, bottom: newValue, right: newValue)
+        }
+        get {
+            self.expandInsets.top
+        }
+    }
+
     var expandInsets: UIEdgeInsets {
         get {
             let inset = (objc_getAssociatedObject(self, &XYZAssociatedKeys.viewExpandKey) as? UIEdgeInsets)

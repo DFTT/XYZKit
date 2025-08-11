@@ -123,11 +123,11 @@ public extension String {
     /// KMP 查找字符串
     /// - Parameter p: 子字符串
     /// - Returns: 子字符串所在位置集合
-    func kmpFindAll(_ p: String) -> [NSRange] {
+    func kmpSubRangesOf(_ p: String) -> [NSRange] {
         var ranges: [NSRange] = []
         let n = self.count
         let m = p.count
-        let t = computePrefix(p)
+        let t = self.computePrefix(p)
         var q = 0
         for i in 0 ..< n {
             while q > 0, p.getCharacter(q) != self.getCharacter(i) {

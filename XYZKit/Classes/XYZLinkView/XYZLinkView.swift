@@ -46,7 +46,7 @@ public class XYZLinkView: UITextView {
             return
         }
         for (_, key) in linkCases.keys.enumerated() {
-            let ranges: [NSRange] = text.kmpFindAll(key) // 查找所有子字符串 Range
+            let ranges: [NSRange] = text.kmpSubRangesOf(key) // 查找所有子字符串 Range
             let path: String? = key.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             if path != nil {
                 for range in ranges {

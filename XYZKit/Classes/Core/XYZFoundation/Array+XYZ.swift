@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 public extension Array {
     /// 不会越界的数组取值
     func safeObject(at index: Int) -> Self.Element? {
