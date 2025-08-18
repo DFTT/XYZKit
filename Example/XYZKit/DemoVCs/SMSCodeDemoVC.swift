@@ -12,9 +12,9 @@ import XYZKit
 class SMSCodeDemoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.view.bgColor(.white)
-        
+
         let config1 = XYZSMSCodeInputView.Configs.default()
         let view1 = XYZSMSCodeInputView(config1)
         view1.frame = CGRect(x: 50, y: 200, width: 300, height: 60)
@@ -23,9 +23,9 @@ class SMSCodeDemoVC: UIViewController {
             // 重置输入
             view1.resetInput()
         }
-        
+
         var config2 = XYZSMSCodeInputView.Configs.default()
-        config2.codeBoder = .roundRect
+        config2.codeBoder = .roundRect(cornerRadius: 12)
         let view2 = XYZSMSCodeInputView(config2)
         view2.frame = CGRect(x: 50, y: 300, width: 300, height: 60)
         view.addSubview(view2)
@@ -44,7 +44,7 @@ class SMSCodeDemoVC: UIViewController {
             // 收键盘
             view3.endEditing(true)
         }
-        
+
         KeyBoardObserver.addLisenner(self)
     }
 }

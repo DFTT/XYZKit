@@ -10,27 +10,33 @@ import UIKit
 
 public class XYZSMSCodeInputView: UIView {
     public struct Configs {
-        public enum CodeBoderStyle: Int {
+        public enum CodeBoderStyle {
             case bottomLine
             case rect
-            case roundRect
+            case roundRect(cornerRadius: CGFloat = 12)
         }
 
-        public enum BorderColorStyle: Int {
+        public enum BorderHighlightMode: Int {
             case select // 当前选中的高亮
-            case fill // 填充后高亮
+            case fill // 填充后的都高亮
         }
 
         public var count: Int = 4
         public var font: UIFont = 17.fontMedium
         public var textColor: UIColor = .black
         public var spacing: Float = 20
+        // 边框线宽
+        public var codeBoderLineWidth: Float = 1
+        // 边框颜色
         public var codeBoderColor: UIColor = 0xe2e3e6.color
-        public var codeBoder: CodeBoderStyle = .bottomLine
-        public var curserColor: UIColor = .systemBlue
+        // 边框高亮颜色
         public var codeSelectedBoderColor: UIColor = .red
-        public var cornerRadius: CGFloat = 12
-        public var boderColorStyle: BorderColorStyle = .select
+        // 边框样式
+        public var codeBoder: CodeBoderStyle = .bottomLine
+        // 边框高亮模式
+        public var boderColorStyle: BorderHighlightMode = .select
+        // 光标颜色
+        public var cursorColor: UIColor = .systemBlue
 
         public static func `default`() -> Self {
             return self.init()
@@ -66,19 +72,32 @@ public class XYZSMSCodeInputView: UIView {
         stackV.topAnchor.constraint(equalTo: topAnchor).isActive = true
         stackV.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
-        codeLabels.forEach { label in
+        for label in codeLabels {
             stackV.addArrangedSubview(label)
         }
 
-        let cs = XYZCurser(color: config.curserColor)
+        let cs = XYZCursorView()
+        cs.color = config.cursorColor
         addSubview(cs)
-        cs.beginAnimation()
-        curser = cs
+        cs.startBlinking()
+        cursor = cs
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override public func becomeFirstResponder() -> Bool {
+        let res = super.becomeFirstResponder()
+        textField.becomeFirstResponder()
+        return res
+    }
+
+    override public func resignFirstResponder() -> Bool {
+        let res = super.resignFirstResponder()
+        textField.resignFirstResponder()
+        return res
     }
 
     public func resetInput() {
@@ -90,17 +109,17 @@ public class XYZSMSCodeInputView: UIView {
         }
     }
 
-    private var curser: XYZCurser?
+    private var cursor: XYZCursorView?
     private var selectIndex: Int = 0
 
     private lazy var codeLabels: [XYZCodeLabel] = {
         var array = [XYZCodeLabel]()
         for i in 1 ... config.count {
             let label = XYZCodeLabel(boderStyle: config.codeBoder,
+                                     boderLineWidth: CGFloat(config.codeBoderLineWidth),
                                      boderNomalColor: config.codeBoderColor,
                                      boderSelectedColor: config.codeSelectedBoderColor,
-                                     cornerRadius: config.cornerRadius,
-                                     borderColorStyle: config.boderColorStyle)
+                                     borderHighlightStyle: config.boderColorStyle)
             label.font(config.font).textColor(config.textColor)
             array.append(label)
 
@@ -156,25 +175,37 @@ public class XYZSMSCodeInputView: UIView {
         tmpRemoveSelectStyle()
 
         guard index < codeLabels.count else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 // 输入满了
                 self.inputCompletion?(self.code)
-            })
+            }
             return
         }
         selectIndex = index
         codeLabels[index].selected = true
 
-        let frame = codeLabels[index].frame
+        let targetLabel = codeLabels[index]
+
+        // 已经填充内容的 不显示光标
+        if let txt = targetLabel.text, txt.isEmpty == false {
+            cursor?.isHidden = true
+            return
+        }
+
+        // 显示光标
+        let frame = targetLabel.frame
         if frame != .zero {
-            let height = config.font.capHeight * 1.2
-            curser?.frame = CGRect(x: frame.origin.x + (frame.size.width - 2) / 2, y: (frame.size.height - height) / 2, width: 2, height: height)
-            curser?.isHidden = false
+            let height = config.font.capHeight * CGFloat(1.2)
+            cursor?.frame = CGRect(x: frame.midX - 1,
+                                   y: frame.midY - height / 2,
+                                   width: 2,
+                                   height: height)
+            cursor?.isHidden = false
         }
     }
 
     private func tmpRemoveSelectStyle() {
-        curser?.isHidden = true
+        cursor?.isHidden = true
         codeLabels[selectIndex].selected = false
     }
 }
@@ -205,23 +236,23 @@ private class XYZCodeLabel: UILabel {
         }
     }
 
-    private let boderStyle: XYZSMSCodeInputView.Configs.CodeBoderStyle?
-    private let boderNomalColor: UIColor?
-    private let boderSelectedColor: UIColor?
-    private let cornerRadius: CGFloat?
-    private let borderColorStyle: XYZSMSCodeInputView.Configs.BorderColorStyle?
+    private let boderStyle: XYZSMSCodeInputView.Configs.CodeBoderStyle
+    private let boderLineWidth: CGFloat
+    private let boderNomalColor: UIColor
+    private let boderSelectedColor: UIColor
+    private let borderHighlightStyle: XYZSMSCodeInputView.Configs.BorderHighlightMode
 
-    init(boderStyle: XYZSMSCodeInputView.Configs.CodeBoderStyle?,
-         boderNomalColor: UIColor?,
-         boderSelectedColor: UIColor?,
-         cornerRadius: CGFloat?,
-         borderColorStyle: XYZSMSCodeInputView.Configs.BorderColorStyle)
+    init(boderStyle: XYZSMSCodeInputView.Configs.CodeBoderStyle,
+         boderLineWidth: CGFloat,
+         boderNomalColor: UIColor,
+         boderSelectedColor: UIColor,
+         borderHighlightStyle: XYZSMSCodeInputView.Configs.BorderHighlightMode)
     {
         self.boderStyle = boderStyle
+        self.boderLineWidth = boderLineWidth
         self.boderNomalColor = boderNomalColor
         self.boderSelectedColor = boderSelectedColor
-        self.cornerRadius = cornerRadius
-        self.borderColorStyle = borderColorStyle
+        self.borderHighlightStyle = borderHighlightStyle
         super.init(frame: CGRect.zero)
         textAlignment = .center
     }
@@ -239,21 +270,18 @@ private class XYZCodeLabel: UILabel {
     private var boderLayer: CALayer?
 
     private func refreshUI() {
-        guard let style = boderStyle else {
-            return
-        }
         let size = bounds.size
         guard size != .zero else {
             return
         }
         if boderLayer == nil {
             boderLayer = CALayer()
-            boderLayer!.borderWidth = 1
+            boderLayer!.borderWidth = boderLineWidth
         }
         let layer = boderLayer!
-        switch style {
+        switch boderStyle {
         case .bottomLine:
-            layer.frame = CGRect(x: 0, y: size.height - 1, width: size.width, height: 1)
+            layer.frame = CGRect(x: 0, y: size.height - boderLineWidth, width: size.width, height: boderLineWidth)
             layer.masksToBounds = false
             layer.cornerRadius = 0
             layer.borderColor = nil
@@ -263,55 +291,101 @@ private class XYZCodeLabel: UILabel {
             layer.masksToBounds = false
             layer.cornerRadius = 0
 
-        case .roundRect:
+        case .roundRect(let cornerRadius):
             layer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
             layer.masksToBounds = true
-            layer.cornerRadius = cornerRadius ?? 12
+            layer.cornerRadius = cornerRadius
         }
 
-        switch borderColorStyle {
+        switch borderHighlightStyle {
         case .select:
-            layer.borderColor = selected ? boderSelectedColor?.cgColor : boderNomalColor?.cgColor
+            layer.borderColor = selected ? boderSelectedColor.cgColor : boderNomalColor.cgColor
         case .fill:
-            layer.borderColor = text?.isEmpty == false || selected ? boderSelectedColor?.cgColor : boderNomalColor?.cgColor
-        case .none:
-            break
+            layer.borderColor = (text?.isEmpty == false || selected) ? boderSelectedColor.cgColor : boderNomalColor.cgColor
         }
         self.layer.addSublayer(layer)
     }
 }
 
-private class XYZCurser: UIView {
-    private var lightAnimation: CAAnimation?
-    private let animateColor: UIColor
-    init(color: UIColor = .systemBlue) {
-        animateColor = color
-        super.init(frame: .zero)
+private class XYZCursorView: UIView {
+    /// 光标颜色，默认系统蓝色
+    var color: UIColor = .systemBlue {
+        didSet {
+            backgroundColor = color
+        }
     }
 
-    @available(*, unavailable)
+    /// 闪烁间隔时间（秒）
+    var blinkInterval: TimeInterval = 0.5 {
+        didSet {
+            if isBlinking {
+                stopBlinking()
+                startBlinking()
+            }
+        }
+    }
+
+    /// 是否正在闪烁
+    private(set) var isBlinking: Bool = false
+
+    private var blinkAnimation: CABasicAnimation?
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setup()
     }
 
-    func beginAnimation() {
-        guard lightAnimation == nil else {
-            return
-        }
-        let animate = CABasicAnimation(keyPath: "backgroundColor")
-        animate.fromValue = UIColor.clear.cgColor
-        animate.toValue = animateColor.cgColor
-        animate.duration = 1
-        animate.repeatCount = Float(INT_MAX)
-        layer.add(animate, forKey: "_hahaha_")
-        lightAnimation = animate
+    deinit {
+        stopBlinking()
     }
 
-    func endAnimation() {
-        guard lightAnimation != nil else {
-            return
-        }
-        layer.removeAnimation(forKey: "_hahaha_")
-        lightAnimation = nil
+    private func setup() {
+        backgroundColor = color
+        layer.opacity = 0.0
+        isUserInteractionEnabled = false // 不拦截触摸事件
+    }
+
+    /// 开始闪烁动画
+    func startBlinking() {
+        guard !isBlinking else { return }
+        isBlinking = true
+
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.fromValue = 1.0
+        animation.toValue = 0.0
+        animation.duration = blinkInterval
+        animation.autoreverses = true
+        animation.repeatCount = .infinity
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+
+        layer.add(animation, forKey: "cursorBlink")
+        blinkAnimation = animation
+    }
+
+    /// 停止闪烁动画
+    func stopBlinking() {
+        guard isBlinking else { return }
+        isBlinking = false
+
+        layer.removeAnimation(forKey: "cursorBlink")
+        layer.opacity = 0.0
+        blinkAnimation = nil
+    }
+
+    /// 立即显示光标（不闪烁）
+    func show() {
+        stopBlinking()
+        layer.opacity = 1.0
+    }
+
+    /// 立即隐藏光标
+    func hide() {
+        stopBlinking()
+        layer.opacity = 0.0
     }
 }
