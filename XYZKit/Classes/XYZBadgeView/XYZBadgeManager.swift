@@ -36,6 +36,7 @@ public final class XYZBadgeManager {
             }
             return publishers[realPath]!
                 .prepend(_getTotalValue_unsafe(for: path)) // 立即返回一次回调, 这个path参数要用不含root的
+                .receive(on: DispatchQueue.main) // 确保后续操作在主线程
                 .eraseToAnyPublisher()
         }
     }
