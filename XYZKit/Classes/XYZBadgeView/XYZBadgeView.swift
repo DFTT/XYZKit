@@ -180,15 +180,34 @@ public extension XYZBadgeView {
     /// 绑定后，该角标将自动根据路径的值显示、隐藏或更新数字。
     ///
     /// - Parameters:
-    ///   - path: 要绑定的红点路径。
     ///   - manager: 使用的 XYZBadgeManager 实例，默认为单例。
-    func bind(to path: XYZBadgePath, manager: XYZBadgeManager) {
+    ///   - path: 要绑定的红点路径。
+    ///   - max: 超过这个数 就显示 maxCount+
+    func bind(to manager: XYZBadgeManager, path: XYZBadgePath, max: Int = 99) {
         // 创建或更新订阅
         // 当调用此方法时，会自动取消上一个订阅
         self.subjection = manager.publisher(for: path)
             .receive(on: DispatchQueue.main) // 确保在主线程更新UI
             .sink { [weak self] value in
-                self?.updateView(with: value)
+                self?.updateView(with: value, max: max)
+            }
+    }
+
+    /// 将此 XYZBadgeView 实例与 XYZBadgeManager 中的一个路径进行绑定。
+    /// 绑定后，该角标将自动根据路径的值显示、隐藏或更新数字。
+    ///
+    /// - Parameters:
+    ///   - manager: 使用的 XYZBadgeManager 实例，默认为单例。
+    ///   - path: 要绑定的红点路径。
+    ///   - sinkBlok: 监听到的数据变化回掉 可以按照自己的规则更新红点
+    func bind(to manager: XYZBadgeManager, path: XYZBadgePath, sinkBlok: @escaping (_ newValue: Int, _ view: XYZBadgeView) -> Void) {
+        // 创建或更新订阅
+        // 当调用此方法时，会自动取消上一个订阅
+        self.subjection = manager.publisher(for: path)
+            .receive(on: DispatchQueue.main) // 确保在主线程更新UI
+            .sink { [weak self] value in
+                guard let self = self else { return }
+                sinkBlok(value, self)
             }
     }
 
@@ -201,10 +220,23 @@ public extension XYZBadgeView {
     // MARK: - Private Helpers
 
     /// 根据接收到的值更新视图
-    private func updateView(with value: Int) {
-        if value > 0 {
+    private func updateView(with value: Int, max: Int) {
+        if value > max {
+            self.contentView.text = "\(max)+"
+            if self.translatesAutoresizingMaskIntoConstraints {
+                // frame布局 自动更新frame
+                let newSize = self.intrinsicContentSize
+                self.size = newSize
+            }
             self.isHidden = false
+        } else if value > 0 {
             self.contentView.text = "\(value)"
+            if self.translatesAutoresizingMaskIntoConstraints {
+                // frame布局 自动更新frame
+                let newSize = self.intrinsicContentSize
+                self.size = newSize
+            }
+            self.isHidden = false
         } else {
             // 当值为0或更少时，隐藏角标并清空文本
             self.isHidden = true

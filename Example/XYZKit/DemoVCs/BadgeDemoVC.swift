@@ -72,7 +72,7 @@ class BadgeDemoVC: UIViewController {
         let badge5 = XYZBadgeView(.red)
         ___addBdView(badge5, to: view5)
         
-        badge5.bind(to: .init(key: "xxxx"), manager: self.msger)
+        badge5.bind(to: self.msger, path: .init(key: "xxxx"), max: 25)
         
         self.badge1 = badge1
         self.badge2 = badge2
@@ -98,6 +98,6 @@ class BadgeDemoVC: UIViewController {
         
         self.badge3.contentView.text = Bool.random() ? "哈哈哈哈" : "嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿"
         
-        self.msger.update(path: .init(key: "xxxx"), value: Int.random(in: 0 ... 100000))
+        self.msger.update(path: .init(key: "xxxx"), value: Int.random(in: -10 ... 50))
     }
 }

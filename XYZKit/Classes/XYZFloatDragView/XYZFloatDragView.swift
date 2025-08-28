@@ -15,6 +15,11 @@ open class XYZFloatDragView: UIView {
         case right
     }
 
+    public enum DragState {
+        case begin
+        case end
+    }
+
     public var dock: DockDirection {
         didSet {
             self.autoDock = self.dock
@@ -33,10 +38,13 @@ open class XYZFloatDragView: UIView {
 
     public var dockEdges = UIEdgeInsets.zero
 
+    /// 拖拽开始/结束的回调
+    public var dragStateChangeBlock: ((DragState) -> Void)?
+
     /// 拖动松手后 自动吸边的动画中block 可以同步进行一些动画
     public var dockingAnimationBlcck: ((CGPoint) -> Void)?
 
-    /// 自动吸边的动画完成后的回调
+    /// 自动吸边的动画结束后的回调
     public var dockEndBlcck: (() -> Void)?
 
     override public init(frame: CGRect) {
@@ -113,9 +121,9 @@ private extension UIView {
         if #available(iOS 11, *) {
             let safeArea = superview.safeAreaInsets
             marginInsets = UIEdgeInsets(top: safeArea.top + marginInsets.top,
-                                       left: safeArea.left + marginInsets.left,
-                                       bottom: safeArea.bottom + marginInsets.bottom,
-                                       right: safeArea.right + marginInsets.right)
+                                        left: safeArea.left + marginInsets.left,
+                                        bottom: safeArea.bottom + marginInsets.bottom,
+                                        right: safeArea.right + marginInsets.right)
         }
 
         let viaiableRect: CGRect = superview.bounds.inset(by: marginInsets)
@@ -178,6 +186,10 @@ private extension UIView {
 
         switch panges.state {
         case .began, .changed:
+            //
+            if panges.state == .began {
+                (view as? XYZFloatDragView)?.dragStateChangeBlock?(.begin)
+            }
 
             var marginInsets = UIEdgeInsets.zero
             if let vv = view as? XYZFloatDragView {
@@ -204,6 +216,7 @@ private extension UIView {
             // 更新
             view.center = newCenter
         case .failed, .ended, .cancelled:
+            (view as? XYZFloatDragView)?.dragStateChangeBlock?(.end)
             self.setAutoDockIfNeed()
         default:
             break
