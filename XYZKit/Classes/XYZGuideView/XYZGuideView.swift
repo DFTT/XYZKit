@@ -1,43 +1,38 @@
 //
-//  GuiderView.swift
-//  GuideView
+//  XYZGuideView.swift
+//  XYZKit
 //
-//  Created by wangwenjian on 2022/5/9.
+//  Created by dadadongl on 2025/10/15.
 //
-
 import UIKit
 
-/// 引导图
-public class XYZGuideView: UIView {
-    public var tapHide: Bool = false // 点击背景释放
-    
-    public convenience init(in view: UIView) {
-        self.init(inView: view)
+public final class XYZGuideView: UIView {
+    public struct Annotation {
+        let view: UIView
+        let makeConstraintsBlock: (_ targetFrame: CGRect, _ annotationView: UIView) -> Void
+        
+        // targetFrame是对应镂空区域的frame, 根据此frame, 请在blcok中对annotationView添加相对于父视图的约束以控制标注视图位置
+        public init(with view: UIView,
+                    makeConstraints block: @escaping (_ targetFrame: CGRect, _ annotationView: UIView) -> Void)
+        {
+            self.view = view
+            self.makeConstraintsBlock = block
+        }
     }
     
-    /// 蒙版位置
-    /// - Parameter inView:
-    init(inView: UIView) {
-        self.inView = inView
-        super.init(frame: .zero)
-        self.isUserInteractionEnabled = true
-        self.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
-        inView.addSubview(self)
-        self.translatesAutoresizingMaskIntoConstraints = false
-        let constraints = [
-            self.leftAnchor.constraint(equalTo: self.inView.leftAnchor),
-            self.topAnchor.constraint(equalTo: self.inView.topAnchor),
-            self.rightAnchor.constraint(equalTo: self.inView.rightAnchor),
-            self.bottomAnchor.constraint(equalTo: self.inView.bottomAnchor)
-        ]
-        NSLayoutConstraint.activate(constraints)
-        inView.layoutIfNeeded()
-        bezierPath = UIBezierPath(rect: self.bounds)
-        self.addTapGesture { [weak self] in
-            if self?.tapHide == true {
-                self?.dissmiss()
-            }
-        }
+    // MARK: - 属性
+  
+    public var allowTouchThroughHollow: Bool = true
+    
+    /// 点击回调, 可是区分是否是点击在穿透区域, 自行控制关闭引导或是重置为下一步引导
+    public var clickCallback: ((_ inHollowArea: Bool) -> Void)?
+    
+    // MARK: - 初始化
+    
+    public init(in view: UIView) {
+        self.hostView = view
+        super.init(frame: view.bounds)
+        setup()
     }
     
     @available(*, unavailable)
@@ -45,97 +40,115 @@ public class XYZGuideView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// 显示目标区域镂空
-    /// - Parameters:
-    ///   - view: 镂空位置的视图
-    ///   - edge: 镂空边缘
-    ///   - cornerRadius: 为镂空区域添加圆角
-    public func show(target view: UIView, edge: UIEdgeInsets = .zero, cornerRadius: CGFloat = 0) {
-        guard let path = bezierPath else {
-            return
-        }
-        targetViews.append(view)
-        let inRect = inView.convert(view.frame, to: inView)
-        self.hollowRects.append(inRect)
-        let rect = inRect.inset(by: edge)
-        path.append(UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius).reversing())
-        markMask()
+    // MARK: - 公开
+    
+    /// 添加镂空区域（通过视图）
+    public func addHollow(for view: UIView, cornerRadius: CGFloat = 0, insets: UIEdgeInsets = .zero, annotations: [Annotation] = []) {
+        guard let hostView = hostView else { return }
+        let frame = view.convert(view.bounds, to: hostView)
+        addHollow(rect: frame, cornerRadius: cornerRadius, insets: insets, annotations: annotations)
     }
     
-    /// 快捷添加图片标注
-    /// - Parameters:
-    ///   - imageName: 图片名称
-    ///   - offset:
-    ///   - targetView:
-    public func addAnnotation(_ imageName: String, offset: CGPoint, targetView: UIView? = nil) {
-        guard let image = UIImage(named: imageName) else {
-            return
-        }
-        addAnnotation(UIImageView(image: image), offset: offset, targetView: targetView)
-    }
+    /// 添加镂空区域（通过Rect）
+    public func addHollow(rect: CGRect, cornerRadius: CGFloat = 0, insets: UIEdgeInsets = .zero, annotations: [Annotation] = []) {
+        guard rect.isEmpty == false else { return }
         
-    /// 添加标注
-    /// - Parameters:
-    ///   - view: 标柱内容
-    ///   - offset: 标注相对于目标原点(x, y)偏移量
-    ///   - targetView: 目标视图, 默认最近添加镂空的视图
-    public func addAnnotation(_ view: UIView, offset: CGPoint, targetView: UIView? = nil) {
-        var tView: UIView?
-        if targetView != nil {
-            tView = targetView
-        } else {
-            tView = targetViews.last
+        _hollowRects.append((rect.inset(by: insets), cornerRadius))
+        _annotations.append(contentsOf: annotations)
+        // 添加标注
+        for annotation in annotations {
+            addSubview(annotation.view)
+            annotation.makeConstraintsBlock(rect, annotation.view)
         }
-        guard let tView = tView else {
-            return
-        }
-        annotations.append(view)
-        let origin = inView.convert(tView.frame, to: inView).origin
-        inView.insertSubview(view, aboveSubview: self)
-        let size = view.intrinsicContentSize
-        view.frame = CGRect(x: origin.x + offset.x, y: origin.y + offset.y, width: size.width, height: size.height)
-    }
-        
-    // 释放当前显示的引导
-    public func clearCurrentSubs() {
-        annotations.forEach { view in
-            view.removeFromSuperview()
-        }
-        annotations.removeAll()
-        bezierPath = UIBezierPath(rect: self.bounds)
-        markMask()
+        updateMask()
     }
     
+    /// 重置引导
+    public func reset() {
+        _hollowRects.removeAll()
+        maskLayer.path = UIBezierPath(rect: bounds).cgPath
+        
+        _annotations.forEach { $0.view.removeFromSuperview() }
+        _annotations.removeAll()
+    }
+    
+    public func show(animated: Bool = true) {
+        guard let hostView = hostView else { return }
+
+        alpha = 0
+        hostView.addSubview(self)
+
+        let animations = { self.alpha = 1 }
+        animated ? UIView.animate(withDuration: 0.2, animations: animations) : animations()
+    }
+
     /// 隐藏引导
-    public func dissmiss() {
-        clearCurrentSubs()
-        self.removeFromSuperview()
+    public func dismiss(animated: Bool = true) {
+        let animations = {
+            self.alpha = 0
+        }
+        
+        let completion: (Bool) -> Void = { _ in
+            self.removeFromSuperview()
+            self.reset()
+        }
+        
+        if animated {
+            UIView.animate(
+                withDuration: 0.2,
+                animations: animations,
+                completion: completion
+            )
+        } else {
+            animations()
+            completion(true)
+        }
     }
+    
+    // MARK: - 私有
+
+    private weak var hostView: UIView?
+    private var _hollowRects: [(rect: CGRect, cornerRadius: CGFloat)] = []
+    private var _annotations: [Annotation] = []
+    
+    private lazy var maskLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.fillRule = .evenOdd
+        return layer
+    }()
+    
+    private func setup() {
+        backgroundColor = UIColor(white: 0.0, alpha: 0.8)
+        layer.mask = maskLayer
+    }
+
+    private func updateMask() {
+        let path = UIBezierPath(rect: bounds)
+        
+        for (hollowRect, cornerRadius) in _hollowRects {
+            let hollowPath = UIBezierPath(roundedRect: hollowRect, cornerRadius: cornerRadius)
+            path.append(hollowPath.reversing())
+        }
+        
+        maskLayer.path = path.cgPath
+    }
+    
+    // MARK: - 点击穿透
     
     override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        for inRect in hollowRects {
-            if inRect.contains(point) {
-                return nil
-            } else {
-                return self
-            }
+        guard let res = super.hitTest(point, with: event) else {
+            return nil
         }
-        return self
-    }
-    
-    private var bezierPath: UIBezierPath?
-    
-    private let inView: UIView // 引导图显示在其上
-    
-    private var targetViews: [UIView] = [] // 需要镂空的视图
-    
-    private var hollowRects: [CGRect] = [] // 镂空的位置
-    
-    private lazy var annotations: [UIView] = [] // 添加的标注
-    
-    private func markMask() {
-        let shape = CAShapeLayer()
-        shape.path = bezierPath?.cgPath
-        self.layer.mask = shape
+        // 不是子视图 & 可以穿透, 再判断是否在镂空区域
+        if res === self, allowTouchThroughHollow {
+            for (rect, _) in _hollowRects {
+                if rect.contains(point) {
+                    clickCallback?(true)
+                    return nil
+                }
+            }
+            clickCallback?(false)
+        }
+        return res
     }
 }

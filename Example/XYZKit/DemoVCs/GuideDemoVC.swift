@@ -12,14 +12,19 @@ import XYZKit
 class GuideDemoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        view.backgroundColor = .white
         _ = container
         _ = squareView
         _ = circleView
         
         DispatchQueue.main.async {
             let guide = XYZGuideView(in: self.container)
-//            guide.tapHide = true // 点击 隐藏
+            guide.allowTouchThroughHollow = true
+            guide.clickCallback = { [weak guide] th in
+                if !th {
+                    guide?.dismiss()
+                }
+            }
             self.guide = guide
             self.showSquareGuide()
         }
@@ -47,7 +52,7 @@ class GuideDemoVC: UIViewController {
         v.backgroundColor = .blue
         v.frame = CGRect(x: 40, y: 40, width: 80, height: 80)
         v.addTapGesture { [weak self] in
-            self?.guide?.clearCurrentSubs()
+            self?.guide?.reset()
             self?.showCirleGuide()
         }
         container.addSubview(v)
@@ -65,24 +70,59 @@ class GuideDemoVC: UIViewController {
     
     // 为方框添加指引
     func showSquareGuide() {
-        guide?.show(target: self.squareView, edge: UIEdgeInsets(top: -5, left: -5, bottom: -5, right: -5), cornerRadius: 5)
-        guide?.addAnnotation("arrow", offset: CGPoint(x: 60, y: 88))
+        let img = UIImageView(image: "arrow".image)
+        
         let label = UILabel()
         label.textColor = .white
         label.text = "点击这个方框"
-        guide?.addAnnotation(label, offset: CGPoint(x: 60, y: 120))
+        
+        let ann = XYZGuideView.Annotation(with: img) { targetFrame, annotationView in
+            annotationView.translatesAutoresizingMaskIntoConstraints = false
+            annotationView.leftAnchor.constraint(equalTo: annotationView.superview!.leftAnchor, constant: targetFrame.maxX).isActive = true
+            
+            annotationView.topAnchor.constraint(equalTo: annotationView.superview!.topAnchor, constant: targetFrame.maxY).isActive = true
+        }
+        
+        let ann2 = XYZGuideView.Annotation(with: label) { targetFrame, annotationView in
+            annotationView.translatesAutoresizingMaskIntoConstraints = false
+            annotationView.leftAnchor.constraint(equalTo: annotationView.superview!.leftAnchor, constant: targetFrame.maxX + 20).isActive = true
+            
+            annotationView.topAnchor.constraint(equalTo: annotationView.superview!.topAnchor, constant: targetFrame.maxY + 40).isActive = true
+        }
+        
+        guide?.addHollow(for: squareView, cornerRadius: 5, insets: UIEdgeInsets(top: -5, left: -5, bottom: -5, right: -5), annotations: [ann, ann2])
+        
+        guide?.addHollow(for: circleView, cornerRadius: 40)
+
+        guide?.show()
     }
     
     // 为圆添加指引
     func showCirleGuide() {
-        guard let guide = self.guide else {
+        guard let guide = guide else {
             return
         }
-        guide.show(target: self.circleView, edge: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), cornerRadius: 40)
-        guide.addAnnotation("arrow", offset: CGPoint(x: 60, y: 88))
+
+        let img = UIImageView(image: "arrow".image)
+        
         let label = UILabel()
         label.textColor = .white
         label.text = "点击这个圆"
-        guide.addAnnotation(label, offset: CGPoint(x: 60, y: 120))
+        
+        let ann = XYZGuideView.Annotation(with: img) { targetFrame, annotationView in
+            annotationView.translatesAutoresizingMaskIntoConstraints = false
+            annotationView.leftAnchor.constraint(equalTo: annotationView.superview!.leftAnchor, constant: targetFrame.maxX).isActive = true
+            
+            annotationView.topAnchor.constraint(equalTo: annotationView.superview!.topAnchor, constant: targetFrame.maxY).isActive = true
+        }
+        
+        let ann2 = XYZGuideView.Annotation(with: label) { targetFrame, annotationView in
+            annotationView.translatesAutoresizingMaskIntoConstraints = false
+            annotationView.leftAnchor.constraint(equalTo: annotationView.superview!.leftAnchor, constant: targetFrame.maxX + 20).isActive = true
+            
+            annotationView.topAnchor.constraint(equalTo: annotationView.superview!.topAnchor, constant: targetFrame.maxY + 40).isActive = true
+        }
+        
+        guide.addHollow(for: circleView, cornerRadius: 5, insets: UIEdgeInsets(top: -5, left: -5, bottom: -5, right: -5), annotations: [ann, ann2])
     }
 }
