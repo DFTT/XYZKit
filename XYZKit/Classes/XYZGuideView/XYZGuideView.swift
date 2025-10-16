@@ -111,6 +111,8 @@ public final class XYZGuideView: UIView {
     private var _hollowRects: [(rect: CGRect, cornerRadius: CGFloat)] = []
     private var _annotations: [Annotation] = []
     
+    private var lastEventTimestamp: TimeInterval = -1
+    
     private lazy var maskLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.fillRule = .evenOdd
@@ -140,14 +142,22 @@ public final class XYZGuideView: UIView {
             return nil
         }
         // 不是子视图 & 可以穿透, 再判断是否在镂空区域
-        if res === self, allowTouchThroughHollow {
-            for (rect, _) in _hollowRects {
-                if rect.contains(point) {
-                    clickCallback?(true)
-                    return nil
+        if res === self {
+            let currentTimestamp = event?.timestamp ?? 0
+            // 只处理新的事件
+            if currentTimestamp != lastEventTimestamp {
+                lastEventTimestamp = currentTimestamp
+                
+                if allowTouchThroughHollow {
+                    for (rect, _) in _hollowRects {
+                        if rect.contains(point) {
+                            clickCallback?(true)
+                            return nil
+                        }
+                    }
                 }
+                clickCallback?(false)
             }
-            clickCallback?(false)
         }
         return res
     }
