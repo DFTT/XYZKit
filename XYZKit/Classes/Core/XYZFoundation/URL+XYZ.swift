@@ -16,4 +16,16 @@ public extension URL {
             res[item.name] = item.value
         }
     }
+
+    init?(string: String, queryItems: [String: String]) {
+        guard var comps = URLComponents(string: string) else { return nil }
+        if queryItems.isEmpty == false {
+            let newItems = queryItems.map { URLQueryItem(name: $0.key, value: $0.value) }
+            var items = comps.queryItems ?? []
+            items.append(contentsOf: newItems)
+            comps.queryItems = items
+        }
+        guard let url = comps.url else { return nil }
+        self = url
+    }
 }

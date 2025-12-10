@@ -8,9 +8,10 @@
 import Foundation
 
 public extension Array {
-    /// 不会越界的数组取值
-    func safeObject(at index: Int) -> Self.Element? {
-        guard (self.startIndex ..< self.endIndex).contains(index) else { return nil }
+    // 防止越界
+    @inlinable
+    subscript(safe index: Int) -> Self.Element? {
+        guard index >= 0, index < count else { return nil }
         return self[index]
     }
 

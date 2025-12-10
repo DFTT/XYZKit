@@ -77,17 +77,6 @@ public extension String {
         return nil
     }
 
-    /// URL编码 alamofire的方案
-    var urlEncode: String {
-        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
-        let subDelimitersToEncode = "!$&'()*+,;="
-        let encodableDelimiters = CharacterSet(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
-
-        let afURLQueryAllowed = CharacterSet.urlQueryAllowed.subtracting(encodableDelimiters)
-
-        return self.addingPercentEncoding(withAllowedCharacters: afURLQueryAllowed) ?? ""
-    }
-
     /// unicode编码
     var unicodeEncode: String {
         var tempStr = String()

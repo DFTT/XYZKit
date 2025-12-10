@@ -8,9 +8,44 @@
 import Foundation
 
 public extension UIApplication {
-    static func topViewController() -> UIViewController? {
-        guard let del = UIApplication.shared.delegate,
-              let root = del.window??.rootViewController else { return nil }
+    // 这个方法 做不到所有项目都通用
+    static func window() -> UIWindow? {
+        if !Thread.isMainThread {
+            assertionFailure("window() should be called on main thread")
+        }
+
+        var wid: UIWindow?
+        if #available(iOS 13.0, *) {
+            let scenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+
+            let scene = scenes.first { $0.activationState == .foregroundActive } ?? scenes.first
+
+            if let del = scene?.delegate as? UIWindowSceneDelegate {
+                wid = del.window ?? nil
+            }
+            if wid == nil {
+                wid = scene?.windows.first { $0.isKeyWindow }
+            }
+            if wid == nil {
+                wid = scene?.windows.first
+            }
+        }
+
+        if wid == nil, let del = UIApplication.shared.delegate {
+            wid = del.window ?? nil
+        }
+        if wid == nil {
+            wid = UIApplication.shared.keyWindow
+        }
+        if wid == nil {
+            wid = UIApplication.shared.windows.first
+        }
+
+        return wid
+    }
+
+    static func topViewController(_ onWindow: UIWindow? = nil) -> UIViewController? {
+        guard let root = (onWindow ?? window())?.rootViewController else { return nil }
 
         var topVc: UIViewController? = root
         var irCount = 0
