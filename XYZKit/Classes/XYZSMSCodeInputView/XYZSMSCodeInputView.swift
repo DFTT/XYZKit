@@ -139,8 +139,8 @@ public class XYZSMSCodeInputView: UIView {
         return stackV
     }()
 
-    private lazy var textField: UITextField = {
-        let tf = UITextField()
+    private lazy var textField: NoActionTextField = {
+        let tf = NoActionTextField()
         tf.keyboardType = .numberPad
         tf.backgroundColor = .clear
         tf.tintColor = .clear
@@ -212,6 +212,40 @@ public class XYZSMSCodeInputView: UIView {
 
 extension XYZSMSCodeInputView: UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // 有这个问题
+        // iOS26以前
+        /// 第一次输入 0, 这里回调 range: (0, 0), string: 0
+        /// 第二次输入 1, 这里回调 range: (1, 0), string: 1
+        // iOS26出现
+        // 第一次输入 0, 这里回调 range: (0, 0), string: 0
+        // 第二次输入 1, 这里回调 range: (0, 1), string: 01
+
+        if string.count > 1 || range.length > 1 {
+            // range replace
+            let curText = (textField.text ?? "") as NSString
+            let newText = curText.replacingCharacters(in: range, with: string)
+            guard newText.count <= codeLabels.count else {
+                return false
+            }
+
+            for (idx, label) in codeLabels.enumerated() {
+                if idx < newText.count {
+                    let startIdx = newText.index(newText.startIndex, offsetBy: idx)
+                    let endIdx = newText.index(after: startIdx)
+                    label.text = String(newText[startIdx ..< endIdx])
+                } else {
+                    label.text = ""
+                }
+            }
+
+            DispatchQueue.main.async {
+                // 光标移到下一个位置
+                self.updateSelectIndex(newText.count)
+            }
+            return true
+        }
+
+        // single input
         return fillCode(string, toindex: range.location)
     }
 
@@ -387,5 +421,11 @@ private class XYZCursorView: UIView {
     func hide() {
         stopBlinking()
         layer.opacity = 0.0
+    }
+}
+
+private class NoActionTextField: UITextField {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        return false
     }
 }
